@@ -10,6 +10,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2 # Only works with v2
+        with:
+          submodules: 'recursive'
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
