@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:personal/home.dart';
+import 'package:personal/resume.dart';
 
-void main() => runApp(PortfolioApp());
+void main() {
+  runApp(PortfolioApp());
+}
 
 class PortfolioApp extends StatelessWidget {
   @override
@@ -13,7 +16,40 @@ class PortfolioApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal)
             .copyWith(secondary: Colors.orange),
       ),
-      home: PortfolioHomePage(),
+      home: PortfolioMainPage(),
     );
+  }
+}
+
+class PortfolioMainPage extends StatefulWidget {
+  @override
+  State<PortfolioMainPage> createState() => _PortfolioMainPageState();
+}
+
+class _PortfolioMainPageState extends State<PortfolioMainPage> {
+  int page = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text('Hyun Jae Moon'), actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              setState(() {
+                page = 0;
+              });
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.note),
+            onPressed: () {
+              setState(() {
+                page = 1;
+              });
+            },
+          ),
+        ]),
+        body: page == 0 ? PortfolioHomePage() : ResumePage());
   }
 }
