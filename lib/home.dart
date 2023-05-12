@@ -1,5 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _launchGithub() async {
+  Uri url = Uri.parse('https://www.github.com/hyunjaemoon/');
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
+  }
+}
 
 class PortfolioHomePage extends StatelessWidget {
   @override
@@ -93,23 +101,7 @@ class PortfolioHomePage extends StatelessWidget {
               SizedBox(height: screenHeight * 0.05),
               ElevatedButton(
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Alert'),
-                        content: Text('Under Construction'),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  _launchGithub();
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.teal,
