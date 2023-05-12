@@ -20,6 +20,7 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
       - name: Configure custom domain
         run: |
+          mkdir public
           echo "hyunjaemoon" > public/CNAME
           cat public/CNAME
         env:
