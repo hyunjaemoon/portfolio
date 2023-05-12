@@ -18,3 +18,9 @@ jobs:
           node-version: '16.x'
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/flutter-gh-pages@v7
+      - name: Configure custom domain
+        run: |
+          echo "hyunjaemoon" > public/CNAME
+          cat public/CNAME
+        env:
+          your-custom-domain: hyunjaemoon.com
