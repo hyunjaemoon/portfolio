@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal/home.dart';
-import 'package:personal/resume.dart';
+import 'package:moonbook/home.dart';
+import 'package:moonbook/resume.dart';
 
 void main() {
   runApp(PortfolioApp());
