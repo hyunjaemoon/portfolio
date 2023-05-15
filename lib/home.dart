@@ -20,7 +20,7 @@ class PortfolioHomePage extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF43cea2), Color(0xFF185a9d)],
-            begin: Alignment.topLeft,
+            begin: Alignment.center,
             end: Alignment.bottomRight,
           ),
         ),
@@ -38,11 +38,14 @@ class PortfolioHomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: screenHeight * 0.025),
-              Text(
-                'Software Engineer & Mobile App Developer',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.05,
-                  color: Colors.white.withOpacity(0.8),
+              Center(
+                child: Text(
+                  'Software Engineer & Mobile App Developer',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: screenWidth * 0.05,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.05),
