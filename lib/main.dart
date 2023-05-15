@@ -36,17 +36,13 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           title: Text("Moon Book"),
           leading: IconButton(
             icon: Icon(Icons.dark_mode),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                page = 0;
+              });
+            },
           ),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                setState(() {
-                  page = 0;
-                });
-              },
-            ),
             IconButton(
               icon: Icon(Icons.note),
               onPressed: () {
