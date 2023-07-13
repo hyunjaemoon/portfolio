@@ -9,7 +9,43 @@ Future<void> _launchGithub() async {
   }
 }
 
-class PortfolioHomePage extends StatelessWidget {
+class PortfolioHomePage extends StatefulWidget {
+  @override
+  _PortfolioHomePageState createState() => _PortfolioHomePageState();
+}
+
+class _PortfolioHomePageState extends State<PortfolioHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimationProfile;
+  late Animation<Offset> _offsetAnimationPen;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..forward();
+
+    _offsetAnimationProfile = Tween<Offset>(
+      begin: Offset(-1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    ));
+
+    _offsetAnimationPen = Tween<Offset>(
+      begin: Offset(2.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = min(MediaQuery.of(context).size.width, 600);
@@ -51,38 +87,44 @@ class PortfolioHomePage extends StatelessWidget {
               SizedBox(height: screenHeight * 0.05),
               Stack(
                 children: [
-                  Container(
-                    width: screenWidth * 0.5,
-                    height: screenWidth * 0.5,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage('assets/profile_image.jpg'),
-                        fit: BoxFit.cover,
-                      ),
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 6,
+                  SlideTransition(
+                    position: _offsetAnimationProfile,
+                    child: Container(
+                      width: screenWidth * 0.5,
+                      height: screenWidth * 0.5,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage('assets/profile_image.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 6,
+                        ),
                       ),
                     ),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
-                    child: Container(
-                      width: screenWidth * 0.125,
-                      height: screenWidth * 0.125,
-                      decoration: BoxDecoration(
-                        color: Colors.teal,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
+                    child: SlideTransition(
+                      position: _offsetAnimationPen,
+                      child: Container(
+                        width: screenWidth * 0.125,
+                        height: screenWidth * 0.125,
+                        decoration: BoxDecoration(
+                          color: Colors.teal,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
