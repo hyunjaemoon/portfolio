@@ -1,129 +1,214 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class TimelineEvent {
-  final String year;
-  final String description;
-
-  TimelineEvent({required this.year, required this.description});
-}
-
-class TimelinePage extends StatefulWidget {
+class SnakeHomePage extends StatefulWidget {
   @override
-  _TimelinePageState createState() => _TimelinePageState();
+  _SnakeHomePageState createState() => _SnakeHomePageState();
 }
 
-class _TimelinePageState extends State<TimelinePage> {
-  List<TimelineEvent> _timelineEvents = [
-    TimelineEvent(year: '2020', description: 'Built my first Flutter app'),
-    TimelineEvent(year: '2021', description: 'Interned at XYZ corp'),
-    TimelineEvent(year: '2022', description: 'Released an open source package'),
-    TimelineEvent(
-        year: '2023', description: 'Worked on a project with 10k+ users'),
-  ];
+class _SnakeHomePageState extends State<SnakeHomePage> {
+  final int squaresPerRow = 20;
+  final int squaresPerCol = 20;
+  final squareSize = 20.0;
+  List<int> snakePosition = [85, 105, 125];
+  int food = 300;
+  var direction = 'down';
+  var gameOn = true;
 
-  int _selectedEvent = 0;
+  @override
+  void initState() {
+    super.initState();
+    _startGame();
+  }
+
+  void _startGame() {
+    const duration = Duration(milliseconds: 300);
+    Timer.periodic(duration, (Timer timer) {
+      _moveSnake();
+      if (_checkGameOver()) {
+        timer.cancel();
+        _showGameOverScreen();
+      }
+    });
+  }
+
+  void _moveSnake() {
+    setState(() {
+      switch (direction) {
+        case 'up':
+          if (snakePosition.first < squaresPerRow) {
+            snakePosition.insert(
+                0,
+                snakePosition.first -
+                    squaresPerRow +
+                    squaresPerRow * squaresPerCol);
+          } else {
+            snakePosition.insert(0, snakePosition.first - squaresPerRow);
+          }
+          break;
+        case 'down':
+          if (snakePosition.first > squaresPerRow * (squaresPerCol - 1)) {
+            snakePosition.insert(
+                0,
+                snakePosition.first +
+                    squaresPerRow -
+                    squaresPerRow * squaresPerCol);
+          } else {
+            snakePosition.insert(0, snakePosition.first + squaresPerRow);
+          }
+          break;
+        case 'left':
+          if (snakePosition.first % squaresPerRow == 0) {
+            snakePosition.insert(0, snakePosition.first + squaresPerRow - 1);
+          } else {
+            snakePosition.insert(0, snakePosition.first - 1);
+          }
+          break;
+        case 'right':
+          if ((snakePosition.first + 1) % squaresPerRow == 0) {
+            snakePosition.insert(0, snakePosition.first - squaresPerRow + 1);
+          } else {
+            snakePosition.insert(0, snakePosition.first + 1);
+          }
+          break;
+        default:
+          return;
+      }
+      if (snakePosition.first == food) {
+        // Increase snake length
+        setState(() {
+          food = Random().nextInt(squaresPerRow * squaresPerCol);
+        });
+      } else {
+        snakePosition.removeLast();
+      }
+    });
+  }
+
+  bool _checkGameOver() {
+    print(snakePosition);
+    if (!gameOn ||
+        snakePosition.first < 0 ||
+        snakePosition.first >= squaresPerRow * squaresPerCol ||
+        snakePosition.skip(1).contains(snakePosition.first)) {
+      return true;
+    }
+    return false;
+  }
+
+  void _showGameOverScreen() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Game Over'),
+            content: Text('Score: ${snakePosition.length}'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Play Again'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    snakePosition = [45, 65, 85];
+                    food = 300;
+                    direction = 'down';
+                    gameOn = true;
+                    _startGame();
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF43cea2), Color(0xFF185a9d)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Snake Game'),
       ),
-      child: Scaffold(
-        backgroundColor: Colors
-            .transparent, // Make the Scaffold background color transparent
-        body: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _timelineEvents.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  TimelineEvent event = entry.value;
-                  bool isSelected = idx == _selectedEvent;
-                  return TimelineNode(
-                    year: event.year,
-                    description: event.description,
-                    isSelected: isSelected,
-                    onSelect: () => setState(() {
-                      _selectedEvent = idx;
-                    }),
-                  );
-                }).toList(),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: GestureDetector(
+              onVerticalDragUpdate: (details) {
+                if (direction != 'up' && details.delta.dy > 0) {
+                  direction = 'down';
+                } else if (direction != 'down' && details.delta.dy < 0) {
+                  direction = 'up';
+                }
+              },
+              onHorizontalDragUpdate: (details) {
+                if (direction != 'left' && details.delta.dx > 0) {
+                  direction = 'right';
+                } else if (direction != 'right' && details.delta.dx < 0) {
+                  direction = 'left';
+                }
+              },
+              child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: squaresPerRow,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  if (snakePosition.contains(index)) {
+                    return Center(
+                      child: Container(
+                        padding: EdgeInsets.all(2),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Container(color: Colors.green),
+                        ),
+                      ),
+                    );
+                  } else if (index == food) {
+                    return Container(
+                      padding: EdgeInsets.all(2),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(color: Colors.red),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class TimelineNode extends StatelessWidget {
-  final String year;
-  final String description;
-  final bool isSelected;
-  final VoidCallback onSelect;
-
-  const TimelineNode({
-    Key? key,
-    required this.year,
-    required this.description,
-    required this.isSelected,
-    required this.onSelect,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onSelect,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 30),
-        child: Row(
-          children: [
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isSelected ? Colors.orange : Colors.white,
-              ),
-            ),
-            SizedBox(width: 20),
-            AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              width: isSelected ? MediaQuery.of(context).size.width * 0.6 : 0,
-              height: isSelected ? 100 : 0,
-              curve: Curves.fastOutSlowIn,
-              child: Card(
-                color: Colors.orange,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        year,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        description,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FloatingActionButton(
+                  onPressed: () => direction = 'up',
+                  child: Icon(Icons.arrow_upward),
                 ),
-              ),
+                Row(
+                  children: <Widget>[
+                    FloatingActionButton(
+                      onPressed: () => direction = 'left',
+                      child: Icon(Icons.arrow_back),
+                    ),
+                    SizedBox(width: 20),
+                    FloatingActionButton(
+                      onPressed: () => direction = 'right',
+                      child: Icon(Icons.arrow_forward),
+                    ),
+                  ],
+                ),
+                FloatingActionButton(
+                  onPressed: () => direction = 'down',
+                  child: Icon(Icons.arrow_downward),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

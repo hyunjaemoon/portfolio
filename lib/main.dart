@@ -70,7 +70,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return TimelinePage();
+        return SnakeHomePage();
       case 2:
         return ResumePage();
       default:
