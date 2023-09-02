@@ -1,214 +1,219 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-class SnakeHomePage extends StatefulWidget {
+class SnakeGame extends StatefulWidget {
   @override
-  _SnakeHomePageState createState() => _SnakeHomePageState();
+  _SnakeGameState createState() => _SnakeGameState();
 }
 
-class _SnakeHomePageState extends State<SnakeHomePage> {
+class _SnakeGameState extends State<SnakeGame> {
   final int squaresPerRow = 20;
   final int squaresPerCol = 20;
-  final squareSize = 20.0;
-  List<int> snakePosition = [85, 105, 125];
+  final int squareSize = 20;
+
+  List<int> snakePosition = [45, 65, 85, 105, 125];
   int food = 300;
-  var direction = 'down';
-  var gameOn = true;
+  String direction = 'down';
 
   @override
   void initState() {
     super.initState();
-    _startGame();
-  }
-
-  void _startGame() {
-    const duration = Duration(milliseconds: 300);
-    Timer.periodic(duration, (Timer timer) {
-      _moveSnake();
-      if (_checkGameOver()) {
+    Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
+      updateSnake();
+      if (gameOver()) {
         timer.cancel();
-        _showGameOverScreen();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Game Over'),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('Play Again'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      snakePosition = [45, 65, 85, 105, 125];
+                      direction = 'down';
+                    });
+                  },
+                )
+              ],
+            );
+          },
+        );
       }
     });
   }
 
-  void _moveSnake() {
+  void updateSnake() {
     setState(() {
       switch (direction) {
-        case 'up':
-          if (snakePosition.first < squaresPerRow) {
-            snakePosition.insert(
-                0,
-                snakePosition.first -
-                    squaresPerRow +
-                    squaresPerRow * squaresPerCol);
+        case 'down':
+          if (snakePosition.last > 399) {
+            snakePosition.add(snakePosition.last + 20 - 400);
           } else {
-            snakePosition.insert(0, snakePosition.first - squaresPerRow);
+            snakePosition.add(snakePosition.last + 20);
           }
           break;
-        case 'down':
-          if (snakePosition.first > squaresPerRow * (squaresPerCol - 1)) {
-            snakePosition.insert(
-                0,
-                snakePosition.first +
-                    squaresPerRow -
-                    squaresPerRow * squaresPerCol);
+        case 'up':
+          if (snakePosition.last < 20) {
+            snakePosition.add(snakePosition.last - 20 + 400);
           } else {
-            snakePosition.insert(0, snakePosition.first + squaresPerRow);
+            snakePosition.add(snakePosition.last - 20);
           }
           break;
         case 'left':
-          if (snakePosition.first % squaresPerRow == 0) {
-            snakePosition.insert(0, snakePosition.first + squaresPerRow - 1);
+          if (snakePosition.last % 20 == 0) {
+            snakePosition.add(snakePosition.last - 1 + 20);
           } else {
-            snakePosition.insert(0, snakePosition.first - 1);
+            snakePosition.add(snakePosition.last - 1);
           }
           break;
         case 'right':
-          if ((snakePosition.first + 1) % squaresPerRow == 0) {
-            snakePosition.insert(0, snakePosition.first - squaresPerRow + 1);
+          if ((snakePosition.last + 1) % 20 == 0) {
+            snakePosition.add(snakePosition.last + 1 - 20);
           } else {
-            snakePosition.insert(0, snakePosition.first + 1);
+            snakePosition.add(snakePosition.last + 1);
           }
           break;
         default:
-          return;
+          break;
       }
-      if (snakePosition.first == food) {
-        // Increase snake length
-        setState(() {
-          food = Random().nextInt(squaresPerRow * squaresPerCol);
-        });
+
+      if (snakePosition.last == food) {
+        // Generate new food position
+        food = [squaresPerRow * squaresPerCol - 1].firstWhere((element) => !snakePosition.contains(element));
       } else {
-        snakePosition.removeLast();
+        snakePosition.removeAt(0);
       }
     });
   }
 
-  bool _checkGameOver() {
-    print(snakePosition);
-    if (!gameOn ||
-        snakePosition.first < 0 ||
-        snakePosition.first >= squaresPerRow * squaresPerCol ||
-        snakePosition.skip(1).contains(snakePosition.first)) {
-      return true;
+  bool gameOver() {
+    for (var i = 0; i < snakePosition.length; i++) {
+      if (snakePosition.lastIndexOf(snakePosition[i]) != i) {
+        return true;
+      }
     }
     return false;
   }
 
-  void _showGameOverScreen() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Game Over'),
-            content: Text('Score: ${snakePosition.length}'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Play Again'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  setState(() {
-                    snakePosition = [45, 65, 85];
-                    food = 300;
-                    direction = 'down';
-                    gameOn = true;
-                    _startGame();
-                  });
-                },
-              ),
-            ],
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Snake Game'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: GestureDetector(
-              onVerticalDragUpdate: (details) {
-                if (direction != 'up' && details.delta.dy > 0) {
-                  direction = 'down';
-                } else if (direction != 'down' && details.delta.dy < 0) {
-                  direction = 'up';
-                }
-              },
-              onHorizontalDragUpdate: (details) {
-                if (direction != 'left' && details.delta.dx > 0) {
-                  direction = 'right';
-                } else if (direction != 'right' && details.delta.dx < 0) {
-                  direction = 'left';
-                }
-              },
-              child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: squaresPerRow,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  if (snakePosition.contains(index)) {
-                    return Center(
-                      child: Container(
-                        padding: EdgeInsets.all(2),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Container(color: Colors.green),
-                        ),
-                      ),
-                    );
-                  } else if (index == food) {
-                    return Container(
-                      padding: EdgeInsets.all(2),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Container(color: Colors.red),
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
+    return Column(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onVerticalDragUpdate: (details) {
+              if (direction != 'up' && details.delta.dy > 0) {
+                direction = 'down';
+              } else if (direction != 'down' && details.delta.dy < 0) {
+                direction = 'up';
+              }
+            },
+            onHorizontalDragUpdate: (details) {
+              if (direction != 'left' && details.delta.dx > 0) {
+                direction = 'right';
+              } else if (direction != 'right' && details.delta.dx < 0) {
+                direction = 'left';
+              }
+            },
+            child: buildGridView(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  if (direction != 'down') direction = 'up';
                 },
+                child: Text("Up"),
               ),
-            ),
+              ElevatedButton(
+                onPressed: () {
+                  if (direction != 'up') direction = 'down';
+                },
+                child: Text("Down"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (direction != 'right') direction = 'left';
+                },
+                child: Text("Left"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (direction != 'left') direction = 'right';
+                },
+                child: Text("Right"),
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                FloatingActionButton(
-                  onPressed: () => direction = 'up',
-                  child: Icon(Icons.arrow_upward),
-                ),
-                Row(
-                  children: <Widget>[
-                    FloatingActionButton(
-                      onPressed: () => direction = 'left',
-                      child: Icon(Icons.arrow_back),
-                    ),
-                    SizedBox(width: 20),
-                    FloatingActionButton(
-                      onPressed: () => direction = 'right',
-                      child: Icon(Icons.arrow_forward),
-                    ),
-                  ],
-                ),
-                FloatingActionButton(
-                  onPressed: () => direction = 'down',
-                  child: Icon(Icons.arrow_downward),
-                ),
-              ],
-            ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildGridView() {
+    return AspectRatio(
+      aspectRatio: squaresPerRow / (squaresPerCol + 5),
+      child: GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: squaresPerRow * squaresPerCol,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: squaresPerRow,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          if (snakePosition.contains(index)) {
+            return partOfSnake();
+          } else if (index == food) {
+            return partOfFood();
+          } else {
+            return emptySquare();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget partOfSnake() {
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(2),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Container(
+            color: Colors.green,
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget partOfFood() {
+    return Container(
+      padding: EdgeInsets.all(2),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
+  Widget emptySquare() {
+    return Container(
+      padding: EdgeInsets.all(2),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          color: Colors.grey[900],
+        ),
       ),
     );
   }
