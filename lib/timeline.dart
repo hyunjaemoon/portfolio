@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class SnakeGame extends StatefulWidget {
@@ -47,6 +48,8 @@ class _SnakeGameState extends State<SnakeGame> {
   }
 
   void updateSnake() {
+    List<int> numbers = List.generate(squaresPerRow * squaresPerCol - 1, (int index) => index);
+    numbers.shuffle(Random());
     setState(() {
       switch (direction) {
         case 'down':
@@ -83,7 +86,7 @@ class _SnakeGameState extends State<SnakeGame> {
 
       if (snakePosition.last == food) {
         // Generate new food position
-        food = [squaresPerRow * squaresPerCol - 1].firstWhere((element) => !snakePosition.contains(element));
+        food = numbers.firstWhere((element) => !snakePosition.contains(element));
       } else {
         snakePosition.removeAt(0);
       }
