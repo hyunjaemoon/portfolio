@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
+import 'package:moonbook/snake.dart';
 
 void main() {
   runApp(PortfolioApp());
@@ -44,10 +45,18 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.note),
+              icon: Icon(Icons.gamepad),
               onPressed: () {
                 setState(() {
                   page = 1;
+                });
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.note),
+              onPressed: () {
+                setState(() {
+                  page = 2;
                 });
               },
             ),
@@ -61,6 +70,8 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
+        return SnakeGame();
+      case 2:
         return ResumePage();
       default:
         return PortfolioHomePage();
