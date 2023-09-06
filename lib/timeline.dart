@@ -13,13 +13,14 @@ class _SnakeGameState extends State<SnakeGame> {
   final int squareSize = 20;
 
   List<int> snakePosition = [45, 65, 85, 105, 125];
+  List<int> numbers = List.generate(400, (int index) => Random().nextInt(400));
   int food = 300;
   String direction = 'down';
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
+    Timer.periodic(Duration(milliseconds: 300), (Timer timer) {
       updateSnake();
       if (gameOver()) {
         timer.cancel();
@@ -48,12 +49,10 @@ class _SnakeGameState extends State<SnakeGame> {
   }
 
   void updateSnake() {
-    List<int> numbers = List.generate(squaresPerRow * squaresPerCol - 1, (int index) => index);
-    numbers.shuffle(Random());
     setState(() {
       switch (direction) {
         case 'down':
-          if (snakePosition.last > 399) {
+          if (snakePosition.last > 379) {
             snakePosition.add(snakePosition.last + 20 - 400);
           } else {
             snakePosition.add(snakePosition.last + 20);
