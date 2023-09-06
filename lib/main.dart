@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
-import 'package:moonbook/timeline.dart';
+import 'package:moonbook/snake.dart';
 
 void main() {
   runApp(PortfolioApp());
@@ -45,7 +45,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.timeline),
+              icon: Icon(Icons.gamepad),
               onPressed: () {
                 setState(() {
                   page = 1;
