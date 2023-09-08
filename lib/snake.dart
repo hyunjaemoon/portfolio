@@ -14,13 +14,19 @@ class _SnakeGameState extends State<SnakeGame> {
   final int squareSize = 20;
 
   List<int> snakePosition = [45, 65, 85, 105, 125];
-  List<int> numbers = List.generate(400, (int index) => Random().nextInt(400));
+  List<int> numbers = List.generate(400, (int index) => index);
   int food = 300;
   String direction = 'down';
+  bool hasMoved = false;
 
   @override
   void initState() {
     super.initState();
+    startGame();
+  }
+
+  void startGame() {
+    numbers.shuffle(Random());
     Timer.periodic(Duration(milliseconds: 300), (Timer timer) {
       updateSnake();
       if (gameOver()) {
@@ -39,6 +45,7 @@ class _SnakeGameState extends State<SnakeGame> {
                       snakePosition = [45, 65, 85, 105, 125];
                       direction = 'down';
                     });
+                    startGame();
                   },
                 )
               ],
@@ -90,6 +97,8 @@ class _SnakeGameState extends State<SnakeGame> {
       } else {
         snakePosition.removeAt(0);
       }
+
+      hasMoved = false; // Reset flag after each update
     });
   }
 
@@ -108,15 +117,19 @@ class _SnakeGameState extends State<SnakeGame> {
       focusNode: FocusNode(),
       autofocus: true,
       onKey: (RawKeyEvent event) {
-        if (event is RawKeyDownEvent) {
+        if (!hasMoved && event is RawKeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.arrowUp && direction != 'down') {
             direction = 'up';
+            hasMoved = true;
           } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && direction != 'up') {
             direction = 'down';
+            hasMoved = true;
           } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft && direction != 'right') {
             direction = 'left';
+            hasMoved = true;
           } else if (event.logicalKey == LogicalKeyboardKey.arrowRight && direction != 'left') {
             direction = 'right';
+            hasMoved = true;
           }
         }
       },
@@ -125,17 +138,21 @@ class _SnakeGameState extends State<SnakeGame> {
           Expanded(
             child: GestureDetector(
               onVerticalDragUpdate: (details) {
-                if (direction != 'up' && details.delta.dy > 0) {
+                if (!hasMoved && direction != 'up' && details.delta.dy > 0) {
                   direction = 'down';
+                  hasMoved = true;
                 } else if (direction != 'down' && details.delta.dy < 0) {
                   direction = 'up';
+                  hasMoved = true;
                 }
               },
               onHorizontalDragUpdate: (details) {
                 if (direction != 'left' && details.delta.dx > 0) {
                   direction = 'right';
+                  hasMoved = true;
                 } else if (direction != 'right' && details.delta.dx < 0) {
                   direction = 'left';
+                  hasMoved = true;
                 }
               },
               child: buildGridView(),
@@ -148,25 +165,37 @@ class _SnakeGameState extends State<SnakeGame> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (direction != 'down') direction = 'up';
+                    if (!hasMoved && direction != 'down') {
+                      direction = 'up';
+                      hasMoved = true;
+                    }
                   },
                   child: Text("Up"),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (direction != 'up') direction = 'down';
+                    if (!hasMoved && direction != 'up') {
+                      direction = 'down';
+                      hasMoved = true;
+                    }
                   },
                   child: Text("Down"),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (direction != 'right') direction = 'left';
+                    if (!hasMoved && direction != 'right') {
+                      direction = 'left';
+                      hasMoved = true;
+                    }
                   },
                   child: Text("Left"),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (direction != 'left') direction = 'right';
+                    if (!hasMoved && direction != 'left') {
+                      direction = 'right';
+                      hasMoved = true;
+                    }
                   },
                   child: Text("Right"),
                 ),
