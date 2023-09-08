@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SnakeGame extends StatefulWidget {
   @override
@@ -103,60 +104,77 @@ class _SnakeGameState extends State<SnakeGame> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onVerticalDragUpdate: (details) {
-              if (direction != 'up' && details.delta.dy > 0) {
-                direction = 'down';
-              } else if (direction != 'down' && details.delta.dy < 0) {
-                direction = 'up';
-              }
-            },
-            onHorizontalDragUpdate: (details) {
-              if (direction != 'left' && details.delta.dx > 0) {
-                direction = 'right';
-              } else if (direction != 'right' && details.delta.dx < 0) {
-                direction = 'left';
-              }
-            },
-            child: buildGridView(),
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      autofocus: true,
+      onKey: (RawKeyEvent event) {
+        if (event is RawKeyDownEvent) {
+          if (event.logicalKey == LogicalKeyboardKey.arrowUp && direction != 'down') {
+            direction = 'up';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && direction != 'up') {
+            direction = 'down';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft && direction != 'right') {
+            direction = 'left';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight && direction != 'left') {
+            direction = 'right';
+          }
+        }
+      },
+      child: Column(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onVerticalDragUpdate: (details) {
+                if (direction != 'up' && details.delta.dy > 0) {
+                  direction = 'down';
+                } else if (direction != 'down' && details.delta.dy < 0) {
+                  direction = 'up';
+                }
+              },
+              onHorizontalDragUpdate: (details) {
+                if (direction != 'left' && details.delta.dx > 0) {
+                  direction = 'right';
+                } else if (direction != 'right' && details.delta.dx < 0) {
+                  direction = 'left';
+                }
+              },
+              child: buildGridView(),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  if (direction != 'down') direction = 'up';
-                },
-                child: Text("Up"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (direction != 'up') direction = 'down';
-                },
-                child: Text("Down"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (direction != 'right') direction = 'left';
-                },
-                child: Text("Left"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (direction != 'left') direction = 'right';
-                },
-                child: Text("Right"),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (direction != 'down') direction = 'up';
+                  },
+                  child: Text("Up"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (direction != 'up') direction = 'down';
+                  },
+                  child: Text("Down"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (direction != 'right') direction = 'left';
+                  },
+                  child: Text("Left"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (direction != 'left') direction = 'right';
+                  },
+                  child: Text("Right"),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
