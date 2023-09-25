@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:moonbook/snake_ai.dart';
 
 class SnakeGame extends StatefulWidget {
   @override
@@ -18,6 +19,16 @@ class _SnakeGameState extends State<SnakeGame> {
   int food = 300;
   String direction = 'down';
   bool hasMoved = false;
+
+  // Snake AI Logic
+  SnakeAI ai = SnakeAI();
+  bool isAIActive = false;
+
+  void startAI() {
+    setState(() {
+      isAIActive = !isAIActive; // Toggle AI on and off
+    });
+  }
 
   @override
   void initState() {
@@ -58,6 +69,10 @@ class _SnakeGameState extends State<SnakeGame> {
 
   void updateSnake() {
     setState(() {
+      if (isAIActive) {
+        direction = ai.getDirection(
+            direction, snakePosition, food); // Let AI decide the direction
+      }
       switch (direction) {
         case 'down':
           if (snakePosition.last > 379) {
@@ -93,7 +108,8 @@ class _SnakeGameState extends State<SnakeGame> {
 
       if (snakePosition.last == food) {
         // Generate new food position
-        food = numbers.firstWhere((element) => !snakePosition.contains(element));
+        food =
+            numbers.firstWhere((element) => !snakePosition.contains(element));
       } else {
         snakePosition.removeAt(0);
       }
@@ -118,16 +134,20 @@ class _SnakeGameState extends State<SnakeGame> {
       autofocus: true,
       onKey: (RawKeyEvent event) {
         if (!hasMoved && event is RawKeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.arrowUp && direction != 'down') {
+          if (event.logicalKey == LogicalKeyboardKey.arrowUp &&
+              direction != 'down') {
             direction = 'up';
             hasMoved = true;
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && direction != 'up') {
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown &&
+              direction != 'up') {
             direction = 'down';
             hasMoved = true;
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft && direction != 'right') {
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft &&
+              direction != 'right') {
             direction = 'left';
             hasMoved = true;
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight && direction != 'left') {
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight &&
+              direction != 'left') {
             direction = 'right';
             hasMoved = true;
           }
@@ -201,6 +221,13 @@ class _SnakeGameState extends State<SnakeGame> {
                 ),
               ],
             ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Toggle AI solving
+              startAI();
+            },
+            child: Text(isAIActive ? "Disable AI" : "Let AI Solve"),
           ),
         ],
       ),
