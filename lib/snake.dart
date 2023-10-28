@@ -181,43 +181,72 @@ class _SnakeGameState extends State<SnakeGame> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if (!hasMoved && direction != 'down') {
-                      direction = 'up';
-                      hasMoved = true;
-                    }
-                  },
-                  child: Text("Up"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!hasMoved && direction != 'up') {
-                      direction = 'down';
-                      hasMoved = true;
-                    }
-                  },
-                  child: Text("Down"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!hasMoved && direction != 'right') {
-                      direction = 'left';
-                      hasMoved = true;
-                    }
-                  },
-                  child: Text("Left"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!hasMoved && direction != 'left') {
-                      direction = 'right';
-                      hasMoved = true;
-                    }
-                  },
-                  child: Text("Right"),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!hasMoved && direction != 'down') {
+                          direction = 'up';
+                          hasMoved = true;
+                        }
+                      },
+                      child: Icon(Icons.arrow_upward),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20.0), // Adjust the button size
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!hasMoved && direction != 'right') {
+                              direction = 'left';
+                              hasMoved = true;
+                            }
+                          },
+                          child: Icon(Icons.arrow_back),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding:
+                                EdgeInsets.all(20.0), // Adjust the button size
+                          ),
+                        ),
+                        SizedBox(
+                            width: 80.0,
+                            height: 80.0), // Placeholder for spacing
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!hasMoved && direction != 'left') {
+                              direction = 'right';
+                              hasMoved = true;
+                            }
+                          },
+                          child: Icon(Icons.arrow_forward),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding:
+                                EdgeInsets.all(20.0), // Adjust the button size
+                          ),
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!hasMoved && direction != 'up') {
+                          direction = 'down';
+                          hasMoved = true;
+                        }
+                      },
+                      child: Icon(Icons.arrow_downward),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20.0), // Adjust the button size
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
