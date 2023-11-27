@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
 import 'package:moonbook/snake.dart';
+import 'package:moonbook/utils.dart';
 
 void main() {
   runApp(PortfolioApp());
@@ -58,6 +59,12 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
                 setState(() {
                   page = 2;
                 });
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.shield),
+              onPressed: () {
+                launchUrlCheck('license');
               },
             ),
           ]),

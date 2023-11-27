@@ -1,13 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-Future<void> _launchGithub() async {
-  Uri url = Uri.parse('https://www.github.com/hyunjaemoon/');
-  if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
-  }
-}
+import 'package:moonbook/utils.dart';
 
 class PortfolioHomePage extends StatefulWidget {
   @override
@@ -146,7 +139,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
               SizedBox(height: screenHeight * 0.05),
               ElevatedButton(
                 onPressed: () {
-                  _launchGithub();
+                  launchUrlCheck("github");
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.teal,

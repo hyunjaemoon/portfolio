@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moonbook/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WorkExperience {
@@ -204,7 +205,7 @@ class _ResumePageState extends State<ResumePage>
                   SizedBox(height: 32),
                   ElevatedButton(
                     onPressed: () {
-                      _launchLinkedIn();
+                      launchUrlCheck("linkedin");
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.teal,
