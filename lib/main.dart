@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moonbook/game_chapter_one.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
+import 'package:moonbook/snake.dart';
 import 'package:moonbook/utils.dart';
 
 void main() {
@@ -77,7 +77,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return MyGameApp();
+        return SnakeGame();
       case 2:
         return ResumePage();
       default:
