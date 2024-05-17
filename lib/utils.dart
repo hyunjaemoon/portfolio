@@ -5,6 +5,8 @@ Map<String, String> urlMap = {
   'github': 'https://www.github.com/hyunjaemoon/',
   'license':
       'https://github.com/hyunjaemoon/hyunjaemoon.github.io/blob/main/LICENSE',
+  'aosp':
+      'https://android-review.googlesource.com/q/owner:hyunjaemoon@google.com',
 };
 
 Future<void> launchUrlCheck(String urlKey) async {

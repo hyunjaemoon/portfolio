@@ -152,7 +152,31 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                 ),
                 child: Text(
-                  'Let\'s build something together',
+                  'Github',
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrlCheck("aosp");
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.teal,
+                  backgroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.1,
+                      vertical: screenHeight * 0.02),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'AOSP | Google',
                   style: TextStyle(
                     fontSize: screenWidth * 0.045,
                     fontWeight: FontWeight.bold,
