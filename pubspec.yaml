@@ -37,6 +37,7 @@ dependencies:
   audioplayers: ^0.20.1
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.3
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter_launcher_icons:
 flutter:
   assets:
   - assets/
+  - .env
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

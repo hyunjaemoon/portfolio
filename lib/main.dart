@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
-import 'package:moonbook/snake.dart';
+import 'package:moonbook/translation_game.dart';
 import 'package:moonbook/utils.dart';
 
 void main() {
-  runApp(PortfolioApp());
+  runApp(const PortfolioApp());
 }
 
 class PortfolioApp extends StatelessWidget {
+  const PortfolioApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,6 +26,8 @@ class PortfolioApp extends StatelessWidget {
 }
 
 class PortfolioMainPage extends StatefulWidget {
+  const PortfolioMainPage({super.key});
+
   @override
   State<PortfolioMainPage> createState() => _PortfolioMainPageState();
 }
@@ -35,9 +39,9 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Moon Book"),
+          title: const Text("Moon Book"),
           leading: IconButton(
-            icon: Icon(Icons.dark_mode),
+            icon: const Icon(Icons.dark_mode),
             onPressed: () {
               setState(() {
                 page = 0;
@@ -46,7 +50,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.gamepad),
+              icon: const Icon(Icons.gamepad),
               onPressed: () {
                 setState(() {
                   page = 1;
@@ -54,7 +58,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.note),
+              icon: const Icon(Icons.note),
               onPressed: () {
                 setState(() {
                   page = 2;
@@ -62,7 +66,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.shield),
+              icon: const Icon(Icons.shield),
               onPressed: () {
                 launchUrlCheck('license');
               },
@@ -77,7 +81,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return SnakeGame();
+        return const AIRequestWidget();
       case 2:
         return ResumePage();
       default:
