@@ -36,6 +36,11 @@ class _SnakeGameState extends State<SnakeGame> {
     startGame();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void startGame() {
     numbers.shuffle(Random());
     Timer.periodic(Duration(milliseconds: 300), (Timer timer) {
@@ -68,6 +73,9 @@ class _SnakeGameState extends State<SnakeGame> {
   }
 
   void updateSnake() {
+    if (!mounted) {
+      return;
+    }
     setState(() {
       if (isAIActive) {
         direction = ai.getDirection(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
+import 'package:moonbook/snake.dart';
 import 'package:moonbook/translation_game.dart';
 import 'package:moonbook/utils.dart';
 
@@ -20,7 +22,7 @@ class PortfolioApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal)
             .copyWith(secondary: Colors.orange),
       ),
-      home: PortfolioMainPage(),
+      home: const PortfolioMainPage(),
     );
   }
 }
@@ -50,7 +52,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.gamepad),
+              icon: const Icon(Icons.science),
               onPressed: () {
                 setState(() {
                   page = 1;
@@ -58,10 +60,20 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.note),
+              icon: const FaIcon(
+                FontAwesomeIcons.staffSnake,
+              ),
               onPressed: () {
                 setState(() {
                   page = 2;
+                });
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.note),
+              onPressed: () {
+                setState(() {
+                  page = 3;
                 });
               },
             ),
@@ -83,6 +95,8 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 1:
         return const AIRequestWidget();
       case 2:
+        return SnakeGame();
+      case 3:
         return ResumePage();
       default:
         return PortfolioHomePage();
