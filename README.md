@@ -1,15 +1,22 @@
-# Hyun Jae Moon's moonbook portfolio
+# Hyun Jae Moon's Moonbook Portfolio
 
-Made with Flutter
+This portfolio is made with Flutter.
 
-# Link
+## Link
 
-https://hyunjaemoon.com
+Visit my portfolio website at [https://hyunjaemoon.com](https://hyunjaemoon.com).
 
-# Disclaimer
+## Translation Game
 
-Please note that I will not be participating in the 'Gemini API Competition'. However, I am interested in exploring the capabilities of the Gemini API and its potential for future projects. Feel free to check out my translation game on my website!
+### Disclaimer
+
+Please note that I will not be participating in the 'Gemini API Competition'. However, I am interested in exploring the capabilities of the Gemini API and its potential for future projects.
+
+### Try it out!
+
+Feel free to check out my translation game on my website!
 
 ## Author
 
-Hyun Jae Moon [calhyunjaemoon@gmail.com]
+Hyun Jae Moon
+Email: calhyunjaemoon@gmail.com
