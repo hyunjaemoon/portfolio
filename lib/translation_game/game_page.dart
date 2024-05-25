@@ -2,6 +2,7 @@
 import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
 import 'package:moonbook/translation_game/disclaimer.dart';
@@ -99,6 +100,7 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
         appBar: AppBar(
           title: Text(_instructions.title),
         ),
+        backgroundColor: const Color(0xff0e0419),
         bottomNavigationBar: DisclaimerWidget(),
         body: SingleChildScrollView(
           child: Column(
@@ -107,19 +109,19 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('English'),
+                  const Text('English', style: TextStyle(color: Colors.white)),
                   Switch(
                     value: isKorean,
                     onChanged: (value) => toggleLanguageDirection(value),
                   ),
-                  const Text('한국어'),
+                  const Text('한국어', style: TextStyle(color: Colors.white)),
                 ],
               ),
               spacing,
               Text(
                 _instructions.instruction,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 16,
                 ),
               ),
@@ -156,11 +158,14 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
               ),
               spacing,
               TextField(
+                style: const TextStyle(color: Colors.white),
                 controller: _textController,
                 decoration: InputDecoration(
+                  labelStyle: const TextStyle(color: Colors.white),
                   labelText: _instructions.input,
                 ),
                 keyboardType: TextInputType.text,
+                cursorColor: Colors.white,
               ),
               spacing,
               ElevatedButton(
@@ -168,9 +173,15 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
                 child: Text(_instructions.buttonText),
               ),
               const SizedBox(height: 16),
-              Text(_instructions.result),
+              Text(
+                _instructions.result,
+                style: TextStyle(color: Colors.white),
+              ),
               const SizedBox(height: 8),
-              Text(response),
+              Text(
+                response,
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),

@@ -32,9 +32,6 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Translation Game'),
-      ),
       bottomNavigationBar: DisclaimerWidget(),
       body: Container(
         color: Color(0xff0e0419),
