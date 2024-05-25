@@ -1,9 +1,12 @@
+// ignore: unused_import
+import 'dart:ui_web';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
 import 'package:moonbook/snake.dart';
-import 'package:moonbook/translation_game.dart';
+import 'package:moonbook/translation_game/home_page.dart';
 import 'package:moonbook/utils.dart';
 
 void main() {
@@ -52,7 +55,12 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.science),
+              icon: Image.asset(
+                "assets/translation_video_game_logo.png",
+                width: 35, // Adjust the width to make the image smaller
+                height: 35, // Adjust the height to make the image smaller
+                fit: BoxFit.contain, // Zoom in the image to fit the IconButton
+              ),
               onPressed: () {
                 setState(() {
                   page = 1;
@@ -93,7 +101,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return const AIRequestWidget();
+        return TranslationGameHomePage();
       case 2:
         return SnakeGame();
       case 3:

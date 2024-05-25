@@ -3,18 +3,19 @@ import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:moonbook/api_interface.dart';
-import 'package:moonbook/instructions.dart';
+import 'package:moonbook/translation_game/api_interface.dart';
+import 'package:moonbook/translation_game/disclaimer.dart';
+import 'package:moonbook/translation_game/instructions.dart';
 
-class AIRequestWidget extends StatefulWidget {
-  const AIRequestWidget({Key? key}) : super(key: key);
+class TranslationGameWidget extends StatefulWidget {
+  const TranslationGameWidget({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _AIRequestWidgetState createState() => _AIRequestWidgetState();
+  _TranslationGameWidgetState createState() => _TranslationGameWidgetState();
 }
 
-class _AIRequestWidgetState extends State<AIRequestWidget>
+class _TranslationGameWidgetState extends State<TranslationGameWidget>
     with SingleTickerProviderStateMixin {
   late Instructions _instructions;
   late TextEditingController _textController;
@@ -98,6 +99,7 @@ class _AIRequestWidgetState extends State<AIRequestWidget>
         appBar: AppBar(
           title: Text(_instructions.title),
         ),
+        bottomNavigationBar: DisclaimerWidget(),
         body: SingleChildScrollView(
           child: Column(
             children: [

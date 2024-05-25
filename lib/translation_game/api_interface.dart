@@ -17,7 +17,6 @@ class ApiService {
     final String url =
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$apiKey';
 
-    // TODO: Extract part of the input txt into Function Calling Tool
     final String inputTxt = '''
 Consider yourself as a translation video game where you score how well the user 
 translated the given $secondaryLanguage Sentence into $primaryLanguage sentence. 
@@ -26,6 +25,7 @@ a single $primaryLanguage  sentence. The question is "$prompt" and the User inpu
 "$userInput". Also, please provide a score from 1 to 100. 
 Be very strict with your scoring.''';
 
+    // TODO: Extract part of the inputTxt into tools.functionDeclarations
     final Map<String, dynamic> requestBody = {
       'contents': [
         {
