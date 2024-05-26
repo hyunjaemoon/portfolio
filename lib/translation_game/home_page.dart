@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/disclaimer.dart';
-import 'package:moonbook/translation_game/game_page.dart';
+import 'package:moonbook/translation_game/demo_page.dart';
 
 class TranslationGameHomePage extends StatefulWidget {
   @override
@@ -56,7 +56,7 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TranslationGameWidget(),
+                      builder: (context) => TranslationGameDemoWidget(),
                     ),
                   );
                 },

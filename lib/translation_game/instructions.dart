@@ -1,10 +1,12 @@
 abstract class Instructions {
   String get title;
+  String get languageToggle;
   String get instruction;
   String get prompt;
   set prompt(String value); // Setter for prompt
   String get input;
   String get buttonText;
+  String get score;
   String get result;
 }
 
@@ -12,8 +14,9 @@ class KoreanInstructions implements Instructions {
   @override
   String title = "번역 게임 데모 powered by Gemini AI";
   @override
-  String instruction = "다음 문장을 한국어로 번역하시오.";
+  String languageToggle = "Language Toggle";
   @override
+  String instruction = "다음 문장을 한국어로 번역하시오.";
   String _prompt =
       "How is everyone doing? I hope you are all doing well."; // Private field for prompt
   @override
@@ -25,15 +28,18 @@ class KoreanInstructions implements Instructions {
   @override
   String buttonText = "제출";
   @override
-  String result = "결과:";
+  String score = "점수";
+  @override
+  String result = "평가";
 }
 
 class EnglishInstructions implements Instructions {
   @override
-  String title = "Translation Game powered by Gemini AI Demo";
+  String title = "Translation Game Demo powered by Gemini AI";
+  @override
+  String languageToggle = "언어 변경";
   @override
   String instruction = "Translate the following sentence into Korean.";
-  @override
   String _prompt =
       "다들 어떻게 지내? 너희들이 다 잘 지내고 있길 바랄게."; // Private field for prompt
   @override
@@ -45,5 +51,7 @@ class EnglishInstructions implements Instructions {
   @override
   String buttonText = "Submit";
   @override
-  String result = "Result:";
+  String score = "Score";
+  @override
+  String result = "Evaluation";
 }

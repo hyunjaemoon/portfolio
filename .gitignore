@@ -43,3 +43,6 @@
 
 # dotenv
 .env
+
+# Cloud Credentials JSON
+cloud_credentials.json

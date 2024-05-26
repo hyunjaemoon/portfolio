@@ -2,21 +2,20 @@
 import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
 import 'package:moonbook/translation_game/disclaimer.dart';
 import 'package:moonbook/translation_game/instructions.dart';
 
-class TranslationGameWidget extends StatefulWidget {
-  const TranslationGameWidget({Key? key}) : super(key: key);
+class TranslationGameDemoWidget extends StatefulWidget {
+  const TranslationGameDemoWidget({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _TranslationGameWidgetState createState() => _TranslationGameWidgetState();
+  _TranslationGameDemoWidgetState createState() =>
+      _TranslationGameDemoWidgetState();
 }
 
-class _TranslationGameWidgetState extends State<TranslationGameWidget>
+class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     with SingleTickerProviderStateMixin {
   late Instructions _instructions;
   late TextEditingController _textController;
@@ -28,12 +27,13 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
   late String _secondaryLanguage;
 
   String response = '';
-  bool isKorean = true; // Track the current language direction
+  int score = 0;
+  bool isKorean = false; // Track the current language direction
+  bool isLoading = false; // Track if Gemini API Request is loading.
 
   @override
   void initState() {
     super.initState();
-    dotenv.load(fileName: '.env');
     _textController = TextEditingController();
     _animationController = AnimationController(
       vsync: this,
@@ -62,6 +62,9 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
   }
 
   Future<void> sendAIRequest() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       final apiResponse = await _apiService.sendAIRequest(
         primaryLanguage: _primaryLanguage,
@@ -71,21 +74,34 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
       );
 
       setState(() {
-        response = apiResponse;
+        response = apiResponse.response;
+        if (apiResponse is GameResponse) {
+          score = apiResponse.score;
+        } else {
+          score = 0;
+        }
       });
     } catch (e) {
       setState(() {
         response = 'Error: ${e.toString()}';
+        score = 0;
       });
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void toggleLanguageDirection(value) {
     setState(() {
       isKorean = value; // Toggle the language direction
+      _textController
+          .clear(); // Clear the text field when the language direction changes
       _primaryLanguage = isKorean ? 'Korean' : 'English';
       _secondaryLanguage = isKorean ? 'English' : 'Korean';
       _instructions = isKorean ? KoreanInstructions() : EnglishInstructions();
+      response = ''; // Clear the response when the language direction changes
+      score = 0; // Reset the score when the language direction changes
     });
   }
 
@@ -107,13 +123,23 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
             children: [
               spacing,
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Text('${_instructions.languageToggle}: ',
+                      style: TextStyle(color: Colors.white)),
                   const Text('English', style: TextStyle(color: Colors.white)),
-                  Switch(
-                    value: isKorean,
-                    onChanged: (value) => toggleLanguageDirection(value),
+                  SizedBox(width: 8),
+                  Transform.scale(
+                    scale: 1.0,
+                    child: Switch(
+                      value: isKorean,
+                      onChanged: (value) => toggleLanguageDirection(value),
+                      activeColor: Colors.green,
+                      inactiveThumbColor: Colors.grey,
+                      inactiveTrackColor: Colors.grey.shade300,
+                    ),
                   ),
+                  SizedBox(width: 8),
                   const Text('한국어', style: TextStyle(color: Colors.white)),
                 ],
               ),
@@ -169,7 +195,9 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
               ),
               spacing,
               ElevatedButton(
-                onPressed: () => sendAIRequest(),
+                onPressed: () => {
+                  if (!isLoading) {sendAIRequest()}
+                },
                 child: Text(_instructions.buttonText),
               ),
               const SizedBox(height: 16),
@@ -180,6 +208,16 @@ class _TranslationGameWidgetState extends State<TranslationGameWidget>
               const SizedBox(height: 8),
               Text(
                 response,
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _instructions.score,
+                style: TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                score.toString(),
                 style: TextStyle(color: Colors.white),
               ),
             ],
