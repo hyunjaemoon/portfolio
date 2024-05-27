@@ -5,28 +5,25 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2 # Only works with v2
-        with:
-          submodules: 'recursive'
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Create .env file
+      - uses: actions/checkout@v2
+      - name: Create .env file in web_static
         run: |
-          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > .env
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > ./web_static/.env
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - name: Deploy static files
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./web_static
+          keep_files: true  # Set to true to retain files not in the current deployment
       - name: Configure custom domain
         run: |
-          mkdir public
-          echo "hyunjaemoon.com" > public/CNAME
-          cat public/CNAME
+          mkdir -p web_static
+          echo "hyunjaemoon.com" > web_static/CNAME
+          cat web_static/CNAME
         env:
           your-custom-domain: hyunjaemoon.com
