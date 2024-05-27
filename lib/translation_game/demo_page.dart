@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
 import 'package:moonbook/translation_game/disclaimer.dart';
 import 'package:moonbook/translation_game/instructions.dart';
+import 'package:moonbook/translation_game/prompt_widget.dart';
+import 'package:moonbook/translation_game/report_issue_widget.dart';
+import 'package:moonbook/translation_game/result_widget.dart';
+import 'package:moonbook/translation_game/submit_button_widget.dart';
+import 'package:moonbook/translation_game/user_input_widget.dart';
 
 class TranslationGameDemoWidget extends StatefulWidget {
   const TranslationGameDemoWidget({Key? key}) : super(key: key);
@@ -21,7 +26,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
   late TextEditingController _textController;
   late AnimationController _animationController;
   late Animation<Offset> _animation;
-  final ApiService _apiService = ApiService();
+  late ApiService _apiService;
 
   late String _primaryLanguage;
   late String _secondaryLanguage;
@@ -41,12 +46,14 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     )..repeat(reverse: true);
 
     _animation = Tween<Offset>(
-      begin: const Offset(0, -0.1),
-      end: const Offset(0, 0.1),
+      begin: const Offset(0, -0.05),
+      end: const Offset(0, 0.05),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
+
+    _apiService = ApiService();
 
     _instructions = isKorean ? KoreanInstructions() : EnglishInstructions();
 
@@ -114,10 +121,34 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_instructions.title),
+          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xff0e0419),
+          title: Text(
+            _instructions.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.purple,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              shadows: [
+                Shadow(
+                  color: Colors.black,
+                  offset: Offset(1, 1),
+                  blurRadius: 2,
+                ),
+              ],
+            ),
+          ),
         ),
         backgroundColor: const Color(0xff0e0419),
-        bottomNavigationBar: DisclaimerWidget(),
+        bottomNavigationBar: Row(
+          children: [
+            ReportIssue(
+              buttonText: _instructions.reportIssueText,
+            ),
+            DisclaimerWidget(),
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -128,7 +159,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                   Text('${_instructions.languageToggle}: ',
                       style: TextStyle(color: Colors.white)),
                   const Text('English', style: TextStyle(color: Colors.white)),
-                  SizedBox(width: 8),
+                  spacing,
                   Transform.scale(
                     scale: 1.0,
                     child: Switch(
@@ -139,17 +170,9 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                       inactiveTrackColor: Colors.grey.shade300,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  spacing,
                   const Text('한국어', style: TextStyle(color: Colors.white)),
                 ],
-              ),
-              spacing,
-              Text(
-                _instructions.instruction,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
               ),
               spacing,
               AnimatedBuilder(
@@ -161,12 +184,17 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                   );
                 },
                 child: Container(
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: Colors.black,
+                    border: Border.all(
+                      color: Colors.purple,
+                      width: 2,
+                    ),
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
+                        color: Colors.purple.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
                         offset: const Offset(0, 3),
@@ -174,52 +202,59 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                     ],
                   ),
                   child: Text(
-                    _instructions.prompt,
+                    _instructions.instruction,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+                      color: Colors.purple,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          offset: Offset(1, 1),
+                          blurRadius: 2,
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
               spacing,
-              TextField(
-                style: const TextStyle(color: Colors.white),
+              PromptWidget(
+                initialPrompt: _instructions.prompt,
+                onPromptChanged: (String newPrompt) {
+                  setState(() {
+                    _instructions.prompt = newPrompt;
+                  });
+                },
+                promptEditorTitle: _instructions.promptEditorText,
+                saveText: _instructions.save,
+                cancelText: _instructions.cancel,
+              ),
+              spacing,
+              UserInput(
                 controller: _textController,
                 decoration: InputDecoration(
                   labelStyle: const TextStyle(color: Colors.white),
                   labelText: _instructions.input,
                 ),
-                keyboardType: TextInputType.text,
-                cursorColor: Colors.white,
               ),
               spacing,
-              ElevatedButton(
-                onPressed: () => {
-                  if (!isLoading) {sendAIRequest()}
+              SubmitButton(
+                isLoading: isLoading,
+                onPressed: () async {
+                  if (!isLoading) {
+                    await sendAIRequest();
+                  }
                 },
-                child: Text(_instructions.buttonText),
+                buttonText: _instructions.buttonText,
               ),
               const SizedBox(height: 16),
-              Text(
-                _instructions.result,
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                response,
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _instructions.score,
-                style: TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                score.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
+              ResultWidget(
+                  score: score,
+                  instructionResult: _instructions.result,
+                  result: response,
+                  instructionScore: _instructions.score)
             ],
           ),
         ),

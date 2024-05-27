@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-// ignore: depend_on_referenced_packages
-import 'package:http/http.dart' as http;
 
 abstract class Response {
   late final String response;
@@ -23,9 +21,31 @@ class ErrorResponse implements Response {
   ErrorResponse(this.response);
 }
 
+Future<Map<String, Object?>> findTranslationEvaluation(
+  Map<String, Object?> arguments,
+) async =>
+    {
+      'score': arguments['score'],
+      'description': arguments['description'],
+    };
+
+final translationEvaluationTool = FunctionDeclaration(
+    'findTranslationEvaluation',
+    'Returns the score and description of the translation',
+    Schema(SchemaType.object, properties: {
+      'score': Schema(SchemaType.integer,
+          description: 'The score of the translation evaluation'),
+      'description': Schema(SchemaType.string,
+          description: 'The description of the translation evaluation'),
+    }, requiredProperties: [
+      'score',
+      'description'
+    ]));
+
 class ApiService {
   final DotEnv dotenv = DotEnv();
   final String envKey = 'GEMINI_API_KEY';
+  late GenerativeModel model;
   String apiKey = '';
   String errorMessage = '';
 
@@ -34,6 +54,10 @@ class ApiService {
     dotenv.load(fileName: '.env').then((_) {
       if (dotenv.env.containsKey(envKey)) {
         apiKey = dotenv.env[envKey]!;
+        model =
+            GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey, tools: [
+          Tool(functionDeclarations: [translationEvaluationTool])
+        ]);
       } else {
         errorMessage = 'API key not found';
       }
@@ -52,10 +76,9 @@ class ApiService {
       return ErrorResponse(errorMessage);
     }
 
-    final String url =
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$apiKey';
+    final chat = model.startChat();
 
-    final String inputTxt = '''
+    final content = Content.text('''
 Consider yourself as a translation video game where you score how well the user 
 translated the given $secondaryLanguage Sentence into $primaryLanguage sentence. 
 Give me a proper game-like response. The game-like response should be concise in 
@@ -64,53 +87,32 @@ a single $primaryLanguage  sentence. The question is "$prompt" and the User inpu
 Be very strict with your scoring.
 
 Return a JSON object with the following format:
-{"translation_score": integer, "game_response": "string"}
-''';
+{"score": integer, "description": "string"}
+''');
 
-    // TODO: Extract part of the inputTxt into tools.functionDeclarations
-    final Map<String, dynamic> requestBody = {
-      'contents': [
-        {
-          'parts': [
-            {'text': inputTxt},
-          ],
-        },
-      ],
-    };
-    final String requestBodyJson = jsonEncode(requestBody);
+    var response = await chat.sendMessage(content);
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: requestBodyJson,
-    );
-
-    final responseBody = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      final candidates = responseBody['candidates'];
-      if (candidates != null && candidates.isNotEmpty) {
-        final content = candidates[0]['content'];
-        if (content != null) {
-          final parts = content['parts'];
-          if (parts != null && parts.isNotEmpty) {
-            final text = parts[0]['text'];
-            if (text != null) {
-              final gameResponseBody = jsonDecode(text);
-              final gameResponse = gameResponseBody['game_response'];
-              final translationScore = gameResponseBody['translation_score'];
-              if (gameResponse != null && translationScore != null) {
-                return GameResponse(
-                    response: gameResponse, score: translationScore);
-              }
-            }
-          }
-        }
+    final functionCalls = response.functionCalls.toList();
+    if (functionCalls.isNotEmpty) {
+      final functionCall = functionCalls.first;
+      if (functionCall.name == 'findTranslationEvaluation') {
+        final result = await findTranslationEvaluation(functionCall.args);
+        response = await chat
+            .sendMessage(Content.functionResponse(functionCall.name, result));
+      } else {
+        return ErrorResponse("Invalid function call: ${functionCall.name}");
       }
-      return ErrorResponse(
-          "Invalid response format: ${responseBody.toString()}");
     } else {
-      return ErrorResponse("Response Error: ${responseBody.toString()}");
+      return ErrorResponse("No function calls found");
+    }
+
+    final gameResponseBody = jsonDecode(response.text!);
+    final gameResponse = gameResponseBody['description'];
+    final translationScore = gameResponseBody['score'];
+    if (gameResponse != null && translationScore != null) {
+      return GameResponse(response: gameResponse, score: translationScore);
+    } else {
+      return ErrorResponse("Invalid response format: ${response.text}");
     }
   }
 }

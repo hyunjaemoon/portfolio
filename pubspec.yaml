@@ -40,6 +40,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   font_awesome_flutter: ^10.7.0
   google_generative_ai: ^0.4.1
+  easy_loading_button: ^0.3.2
 
 dev_dependencies:
   flutter_test:

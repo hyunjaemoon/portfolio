@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/resume.dart';
 import 'package:moonbook/snake.dart';
-import 'package:moonbook/translation_game/demo_page.dart';
 import 'package:moonbook/translation_game/home_page.dart';
 import 'package:moonbook/utils.dart';
 
@@ -93,7 +92,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
           ]),
-      body: TranslationGameDemoWidget(),
+      body: _buildBody(),
     );
   }
 
