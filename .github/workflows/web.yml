@@ -13,17 +13,13 @@ jobs:
       - uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Create .env file in web_static
-        run: |
-          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > ./web_static/.env
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      - name: Deploy static files
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: subosito/flutter-action@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./web_static
-          keep_files: true  # Set to true to retain files not in the current deployment
+          channel: 'stable'
+      - uses: erickzanardo/flutter-gh-pages@v7
+        with:
+          customArgs: --dart-define GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} # Add this line
+          basehref: /flutter-github-page/
       - name: Configure custom domain
         run: |
           mkdir -p web_static

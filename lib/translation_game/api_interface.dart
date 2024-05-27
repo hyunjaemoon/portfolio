@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:moonbook/env.dart';
 
 abstract class Response {
   late final String response;
@@ -50,20 +51,13 @@ class ApiService {
   String errorMessage = '';
 
   ApiService() {
-    // Obtain the Gemini API key from the .env file
-    dotenv.load(fileName: '.env').then((_) {
-      if (dotenv.env.containsKey(envKey)) {
-        apiKey = dotenv.env[envKey]!;
-        model =
-            GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey, tools: [
+    // Obtain the apiKey from env.dart
+    model = GenerativeModel(
+        model: 'gemini-1.5-flash',
+        apiKey: EnvService.apiKey,
+        tools: [
           Tool(functionDeclarations: [translationEvaluationTool])
         ]);
-      } else {
-        errorMessage = 'API key not found';
-      }
-    }).catchError((error) {
-      errorMessage = error;
-    });
   }
 
   Future<Response> sendAIRequest({
