@@ -1,11 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:moonbook/utils.dart';
 
 class DisclaimerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = min(MediaQuery.of(context).size.height, 800);
     return Container(
-      height: 60,
+      height: screenHeight * 0.15,
       color: Colors.grey[200],
       child: Center(
         child: Text(
