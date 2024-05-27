@@ -8,6 +8,8 @@ Visit my portfolio website at [https://hyunjaemoon.com](https://hyunjaemoon.com)
 
 ## Translation Game
 
+Feel free to check out the translation video game! It is a colorful looking logo on the top navigation bar!
+
 ### Disclaimer
 
 Please note that I will not be participating in the 'Gemini API Competition'. However, I am interested in exploring the capabilities of the Gemini API and its potential for future projects.
