@@ -5,12 +5,13 @@ import 'package:moonbook/translation_game/disclaimer.dart';
 import 'package:moonbook/translation_game/demo_page.dart';
 
 class TranslationGameHomePage extends StatefulWidget {
+  const TranslationGameHomePage({super.key});
+
   @override
-  _TranslationGameHomePageState createState() =>
-      _TranslationGameHomePageState();
+  TranslationGameHomePageState createState() => TranslationGameHomePageState();
 }
 
-class _TranslationGameHomePageState extends State<TranslationGameHomePage>
+class TranslationGameHomePageState extends State<TranslationGameHomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
@@ -18,7 +19,7 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     )..repeat();
   }
@@ -34,7 +35,7 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
     return Scaffold(
       bottomNavigationBar: DisclaimerWidget(),
       body: Container(
-        color: Color(0xff0e0419),
+        color: const Color(0xff0e0419),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +51,7 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                 },
                 child: Image.asset('assets/translation_video_game_logo.png'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -58,7 +59,7 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                     PageRouteBuilder(
                       transitionDuration: const Duration(milliseconds: 500),
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          TranslationGameDemoWidget(),
+                          const TranslationGameDemoWidget(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         var begin = 0.0;
@@ -78,13 +79,14 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Demo',
                   style: TextStyle(
                     fontSize: 20,
@@ -93,18 +95,19 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Endless Mode (Coming Soon)',
                   style: TextStyle(
                     fontSize: 20,
@@ -113,18 +116,19 @@ class _TranslationGameHomePageState extends State<TranslationGameHomePage>
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Story Mode (Coming Soon)',
                   style: TextStyle(
                     fontSize: 20,
