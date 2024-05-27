@@ -10,6 +10,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
       - name: Create .env file in web_static
         run: |
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > ./web_static/.env
