@@ -40,16 +40,20 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (BuildContext context, Widget? child) {
-                  return Transform.translate(
-                    offset: Offset(
-                        0, 10 * sin(_animationController.value * 2 * pi)),
-                    child: child,
-                  );
-                },
-                child: Image.asset('assets/translation_video_game_logo.png'),
+              SizedBox(
+                width: 500,
+                height: 500,
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.translate(
+                      offset: Offset(
+                          0, 10 * sin(_animationController.value * 2 * pi)),
+                      child: child,
+                    );
+                  },
+                  child: Image.asset('assets/translation_video_game_logo.png'),
+                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
