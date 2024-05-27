@@ -3,7 +3,6 @@ import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
-import 'package:moonbook/translation_game/disclaimer.dart';
 import 'package:moonbook/translation_game/instructions.dart';
 import 'package:moonbook/translation_game/prompt_widget.dart';
 import 'package:moonbook/translation_game/report_issue_widget.dart';
@@ -12,7 +11,7 @@ import 'package:moonbook/translation_game/submit_button_widget.dart';
 import 'package:moonbook/translation_game/user_input_widget.dart';
 
 class TranslationGameDemoWidget extends StatefulWidget {
-  const TranslationGameDemoWidget({Key? key}) : super(key: key);
+  const TranslationGameDemoWidget({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -141,13 +140,8 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
           ),
         ),
         backgroundColor: const Color(0xff0e0419),
-        bottomNavigationBar: Row(
-          children: [
-            ReportIssue(
-              buttonText: _instructions.reportIssueText,
-            ),
-            DisclaimerWidget(),
-          ],
+        bottomNavigationBar: ReportIssue(
+          buttonText: _instructions.reportIssueText,
         ),
         body: SingleChildScrollView(
           child: Column(
