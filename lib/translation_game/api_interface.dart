@@ -48,6 +48,7 @@ class ApiService {
   String errorMessage = '';
 
   ApiService() {
+    print(const String.fromEnvironment("GEMINI_API_KEY", defaultValue: ''));
     // Obtain the apiKey from env.dart
     model = GenerativeModel(
         model: 'gemini-1.5-flash',
@@ -73,9 +74,10 @@ class ApiService {
 Consider yourself as a translation video game where you score how well the user 
 translated the given $secondaryLanguage Sentence into $primaryLanguage sentence. 
 Give me a proper game-like response. The game-like response should be concise in 
-a single $primaryLanguage  sentence. The question is "$prompt" and the User input is
-"$userInput". Also, please provide a score from 1 to 100. 
-Be very strict with your scoring. Return the score and description of the translation evaluation.
+a single sentence. The question is "$prompt" and the User input is
+"$userInput". Also, please provide a score from 1 to 100. Be very strict with your 
+scoring. Return the score and description (strictly in $primaryLanguage) of the translation 
+evaluation.
 ''');
 
     var response = await chat.sendMessage(content);
