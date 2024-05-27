@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:moonbook/env.dart';
 
@@ -76,10 +75,7 @@ translated the given $secondaryLanguage Sentence into $primaryLanguage sentence.
 Give me a proper game-like response. The game-like response should be concise in 
 a single $primaryLanguage  sentence. The question is "$prompt" and the User input is
 "$userInput". Also, please provide a score from 1 to 100. 
-Be very strict with your scoring.
-
-Return a JSON object with the following format:
-{"score": integer, "description": "string"}
+Be very strict with your scoring. Return the score and description of the translation evaluation.
 ''');
 
     var response = await chat.sendMessage(content);
@@ -89,22 +85,14 @@ Return a JSON object with the following format:
       final functionCall = functionCalls.first;
       if (functionCall.name == 'findTranslationEvaluation') {
         final result = await findTranslationEvaluation(functionCall.args);
-        response = await chat
-            .sendMessage(Content.functionResponse(functionCall.name, result));
+        String description = result['description'].toString();
+        int score = int.parse(result['score'].toString());
+        return GameResponse(response: description, score: score);
       } else {
         return ErrorResponse("Invalid function call: ${functionCall.name}");
       }
     } else {
       return ErrorResponse("No function calls found");
-    }
-
-    final gameResponseBody = jsonDecode(response.text!);
-    final gameResponse = gameResponseBody['description'];
-    final translationScore = gameResponseBody['score'];
-    if (gameResponse != null && translationScore != null) {
-      return GameResponse(response: gameResponse, score: translationScore);
-    } else {
-      return ErrorResponse("Invalid response format: ${response.text}");
     }
   }
 }
