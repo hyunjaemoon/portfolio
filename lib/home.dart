@@ -57,19 +57,24 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text('Hyun Jae Moon',
-                  style: fitTextStyle(context).apply(
-                    color: Colors.white,
-                    fontFamily: 'Montserrat',
-                    fontSizeFactor: 1.5,
-                  )),
+              Text(
+                'Hyun Jae Moon',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: screenWidth * 0.1,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
               SizedBox(height: screenHeight * 0.025),
               Center(
                 child: Text(
                   'Software Engineer & Mobile App Developer',
-                  style: fitTextStyle(context).apply(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white.withOpacity(0.8)),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: screenWidth * 0.05,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.05),
@@ -124,10 +129,10 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                 child: Text(
                   'Welcome to my portfolio app! I am an experienced software engineer with a passion for creating visually appealing and user-friendly applications. Please feel free to browse my projects and contact me for any inquiries.',
                   textAlign: TextAlign.center,
-                  style: fitTextStyle(context).apply(
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.04,
                     color: Colors.white.withOpacity(0.8),
-                    fontFamily: 'Montserrat',
-                    fontSizeFactor: 0.7,
+                    height: 1.5,
                   ),
                 ),
               ),
@@ -146,9 +151,14 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text('Github',
-                    style: fitTextStyle(context)
-                        .apply(color: Colors.teal, fontSizeFactor: 0.8)),
+                child: Text(
+                  'Github',
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
               ),
               SizedBox(height: screenHeight * 0.02),
               ElevatedButton(
@@ -167,8 +177,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                 ),
                 child: Text(
                   'AOSP | Google',
-                  style: fitTextStyle(context)
-                      .apply(color: Colors.teal, fontSizeFactor: 0.8),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
                 ),
               ),
             ]),

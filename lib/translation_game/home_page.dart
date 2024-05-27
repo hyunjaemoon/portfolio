@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/disclaimer.dart';
 import 'package:moonbook/translation_game/demo_page.dart';
-import 'package:moonbook/utils.dart';
 
 class TranslationGameHomePage extends StatefulWidget {
   const TranslationGameHomePage({super.key});
@@ -33,21 +32,17 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = min(MediaQuery.of(context).size.width, 500);
-    double screenHeight = min(MediaQuery.of(context).size.height, 500);
-
     return Scaffold(
       bottomNavigationBar: DisclaimerWidget(),
       backgroundColor: const Color(0xff0e0419),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: screenWidth * 0.7,
-                height: screenHeight * 0.7,
+                width: 500,
+                height: 500,
                 child: AnimatedBuilder(
                   animation: _animationController,
                   builder: (BuildContext context, Widget? child) {
@@ -60,6 +55,7 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
                   child: Image.asset('assets/translation_video_game_logo.png'),
                 ),
               ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -94,9 +90,14 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text('Demo',
-                    style: fitTextStyle(context)
-                        .apply(color: Colors.white, fontSizeFactor: 0.8)),
+                child: const Text(
+                  'Demo',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               ElevatedButton(
@@ -110,10 +111,13 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Endless Mode (Coming Soon)',
-                  style: fitTextStyle(context)
-                      .apply(color: Colors.white, fontSizeFactor: 0.8),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -128,10 +132,13 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Story Mode (Coming Soon)',
-                  style: fitTextStyle(context)
-                      .apply(color: Colors.white, fontSizeFactor: 0.8),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
