@@ -19,4 +19,3 @@ jobs:
       - uses: erickzanardo/flutter-gh-pages@v7
         with:
           customArgs: --dart-define GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} # Add this line
-          basehref: /flutter-github-page/
