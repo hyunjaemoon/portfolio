@@ -34,9 +34,9 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: DisclaimerWidget(),
-      body: Container(
-        color: const Color(0xff0e0419),
-        child: SingleChildScrollView(
+      backgroundColor: const Color(0xff0e0419),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
