@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map<String, String> urlMap = {
@@ -18,4 +19,10 @@ Future<void> launchUrlCheck(String urlKey) async {
   if (!await launchUrl(url)) {
     throw Exception('Could not launch $url');
   }
+}
+
+TextStyle fitTextStyle(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+  final textScaleFactor = size.width / 500;
+  return TextStyle(fontSize: 24 * textScaleFactor);
 }

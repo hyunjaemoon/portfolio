@@ -9,6 +9,7 @@ import 'package:moonbook/translation_game/report_issue_widget.dart';
 import 'package:moonbook/translation_game/result_widget.dart';
 import 'package:moonbook/translation_game/submit_button_widget.dart';
 import 'package:moonbook/translation_game/user_input_widget.dart';
+import 'package:moonbook/utils.dart';
 
 class TranslationGameDemoWidget extends StatefulWidget {
   const TranslationGameDemoWidget({super.key});
@@ -125,18 +126,10 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
           title: Text(
             _instructions.title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.purple,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-              shadows: [
-                Shadow(
-                  color: Colors.black,
-                  offset: Offset(1, 1),
-                  blurRadius: 2,
-                ),
-              ],
-            ),
+            style: fitTextStyle(context)
+                .apply(color: Colors.purple, fontSizeFactor: 0.8, shadows: [
+              Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
+            ]),
           ),
         ),
         backgroundColor: const Color(0xff0e0419),

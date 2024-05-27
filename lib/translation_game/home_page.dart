@@ -32,6 +32,9 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = min(MediaQuery.of(context).size.width, 500);
+    double screenHeight = min(MediaQuery.of(context).size.height, 500);
+
     return Scaffold(
       bottomNavigationBar: DisclaimerWidget(),
       backgroundColor: const Color(0xff0e0419),
@@ -41,8 +44,8 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 500,
-                height: 500,
+                width: screenWidth * 0.6,
+                height: screenHeight * 0.6,
                 child: AnimatedBuilder(
                   animation: _animationController,
                   builder: (BuildContext context, Widget? child) {
