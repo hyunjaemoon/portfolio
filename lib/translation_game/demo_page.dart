@@ -9,6 +9,7 @@ import 'package:moonbook/translation_game/report_issue_widget.dart';
 import 'package:moonbook/translation_game/result_widget.dart';
 import 'package:moonbook/translation_game/submit_button_widget.dart';
 import 'package:moonbook/translation_game/user_input_widget.dart';
+import 'package:moonbook/utils.dart';
 
 class TranslationGameDemoWidget extends StatefulWidget {
   const TranslationGameDemoWidget({super.key});
@@ -125,14 +126,13 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
           title: Text(
             _instructions.title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: fitTextStyle(context).apply(
+              fontSizeFactor: 0.6,
               color: Colors.purple,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
               shadows: [
                 Shadow(
                   color: Colors.black,
-                  offset: Offset(1, 1),
+                  offset: const Offset(1, 1),
                   blurRadius: 2,
                 ),
               ],
@@ -151,8 +151,11 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('${_instructions.languageToggle}: ',
-                      style: TextStyle(color: Colors.white)),
-                  const Text('English', style: TextStyle(color: Colors.white)),
+                      style: fitTextStyle(context)
+                          .apply(color: Colors.white, fontSizeFactor: 0.5)),
+                  Text('English',
+                      style: fitTextStyle(context)
+                          .apply(color: Colors.white, fontSizeFactor: 0.5)),
                   spacing,
                   Transform.scale(
                     scale: 1.0,
@@ -165,7 +168,9 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                     ),
                   ),
                   spacing,
-                  const Text('한국어', style: TextStyle(color: Colors.white)),
+                  Text('한국어',
+                      style: fitTextStyle(context)
+                          .apply(color: Colors.white, fontSizeFactor: 0.5)),
                 ],
               ),
               spacing,
@@ -195,22 +200,17 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                       ),
                     ],
                   ),
-                  child: Text(
-                    _instructions.instruction,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.purple,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black,
-                          offset: Offset(1, 1),
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: Text(_instructions.instruction,
+                      textAlign: TextAlign.center,
+                      style: fitTextStyle(context).apply(
+                          fontSizeFactor: 0.8,
+                          color: Colors.purple,
+                          shadows: [
+                            (const Shadow(
+                                color: Colors.black,
+                                offset: Offset(1, 1),
+                                blurRadius: 2))
+                          ])),
                 ),
               ),
               spacing,

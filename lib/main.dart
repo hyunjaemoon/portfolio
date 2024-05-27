@@ -44,7 +44,8 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Moon Book"),
+          title: Text("Moon Book",
+              style: fitTextStyle(context).apply(fontSizeFactor: 0.8)),
           leading: IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {
@@ -101,7 +102,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return TranslationGameHomePage();
+        return const TranslationGameHomePage();
       case 2:
         return SnakeGame();
       case 3:
