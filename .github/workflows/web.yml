@@ -18,6 +18,7 @@ jobs:
       - name: Deploy static files
         uses: peaceiris/actions-gh-pages@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./web_static
           keep_files: true  # Set to true to retain files not in the current deployment
       - name: Configure custom domain
