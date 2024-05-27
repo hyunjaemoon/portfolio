@@ -48,7 +48,6 @@ class ApiService {
   String errorMessage = '';
 
   ApiService() {
-    print(const String.fromEnvironment("GEMINI_API_KEY", defaultValue: ''));
     // Obtain the apiKey from env.dart
     model = GenerativeModel(
         model: 'gemini-1.5-flash',
