@@ -22,8 +22,7 @@ jobs:
           basehref: /flutter-github-page/
       - name: Configure custom domain
         run: |
-          mkdir -p web_static
-          echo "hyunjaemoon.com" > web_static/CNAME
-          cat web_static/CNAME
+          echo "hyunjaemoon.com" > CNAME
+          cat CNAME
         env:
           your-custom-domain: hyunjaemoon.com

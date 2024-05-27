@@ -1,4 +1,3 @@
-import 'package:easy_loading_button/easy_loading_button.dart';
 import 'package:flutter/material.dart';
 
 typedef FutureCallback = Future<void> Function();
@@ -24,20 +23,20 @@ class SubmitButton extends StatelessWidget {
       await onPressed();
     }
 
-    return EasyButton(
-      type: EasyButtonType.elevated,
-      idleStateWidget: Text(buttonText,
-          style: const TextStyle(color: Colors.white, fontSize: 20)),
-      loadingStateWidget: const CircularProgressIndicator(),
-      useWidthAnimation: true,
-      useEqualLoadingStateWidgetDimension: true,
-      width: 150.0,
-      height: 40.0,
-      borderRadius: 4.0,
-      elevation: 0.0,
-      contentGap: 6.0,
-      buttonColor: Colors.purpleAccent,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.purpleAccent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+      ),
       onPressed: isLoading ? null : onButtonPressed,
+      child: isLoading
+          ? const CircularProgressIndicator()
+          : Text(
+              buttonText,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:moonbook/env.dart';
 
@@ -44,7 +43,6 @@ final translationEvaluationTool = FunctionDeclaration(
     ]));
 
 class ApiService {
-  final DotEnv dotenv = DotEnv();
   final String envKey = 'GEMINI_API_KEY';
   late GenerativeModel model;
   String apiKey = '';
