@@ -46,3 +46,6 @@
 
 # Cloud Credentials JSON
 cloud_credentials.json
+
+# run.sh
+run.sh
