@@ -1,5 +1,6 @@
-// ignore: unused_import
 import 'dart:math';
+
+// ignore: unused_import
 import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
             _instructions.title,
             textAlign: TextAlign.center,
             style: fitTextStyle(context)
-                .apply(color: Colors.purple, fontSizeFactor: 0.8, shadows: [
+                .apply(color: Colors.purple, fontSizeFactor: 0.5, shadows: [
               Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
             ]),
           ),

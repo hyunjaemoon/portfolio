@@ -16,7 +16,7 @@ abstract class Instructions {
 
 class KoreanInstructions implements Instructions {
   @override
-  String title = "번역 게임 데모 powered by Gemini AI";
+  String title = "번역 게임 데모 powered by Gemini AI v0.1";
   @override
   String languageToggle = "Language Toggle";
   @override
@@ -46,7 +46,7 @@ class KoreanInstructions implements Instructions {
 
 class EnglishInstructions implements Instructions {
   @override
-  String title = "Translation Game Demo powered by Gemini AI";
+  String title = "Translation Game Demo powered by Gemini AI v0.1";
   @override
   String languageToggle = "언어 변경";
   @override
