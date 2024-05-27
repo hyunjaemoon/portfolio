@@ -20,7 +20,7 @@ class PortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hyun Jae Moon',
+      title: 'Moon Book',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal)
@@ -93,7 +93,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
           ]),
-      body: TranslationGameDemoWidget(), // TODO: Replace with _buildBody()
+      body: TranslationGameDemoWidget(),
     );
   }
 

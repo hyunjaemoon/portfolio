@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
