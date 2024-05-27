@@ -36,7 +36,7 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
       bottomNavigationBar: DisclaimerWidget(),
       body: Container(
         color: const Color(0xff0e0419),
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
