@@ -1,9 +1,11 @@
 // ignore: unused_import
+import 'dart:math';
 import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
 import 'package:moonbook/translation_game/instructions.dart';
+import 'package:moonbook/translation_game/prompt.dart';
 import 'package:moonbook/translation_game/prompt_widget.dart';
 import 'package:moonbook/translation_game/report_issue_widget.dart';
 import 'package:moonbook/translation_game/result_widget.dart';
@@ -23,6 +25,7 @@ class TranslationGameDemoWidget extends StatefulWidget {
 class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     with SingleTickerProviderStateMixin {
   late Instructions _instructions;
+  late Prompts _prompts;
   late TextEditingController _textController;
   late AnimationController _animationController;
   late Animation<Offset> _animation;
@@ -35,6 +38,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
   int score = 0;
   bool isKorean = false; // Track the current language direction
   bool isLoading = false; // Track if Gemini API Request is loading.
+  Random random = Random();
 
   @override
   void initState() {
@@ -56,6 +60,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     _apiService = ApiService();
 
     _instructions = isKorean ? KoreanInstructions() : EnglishInstructions();
+    _prompts = isKorean ? EnglishPrompts() : KoreanPrompts();
 
     _primaryLanguage = isKorean ? 'Korean' : 'English';
     _secondaryLanguage = isKorean ? 'English' : 'Korean';
@@ -107,8 +112,15 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
       _primaryLanguage = isKorean ? 'Korean' : 'English';
       _secondaryLanguage = isKorean ? 'English' : 'Korean';
       _instructions = isKorean ? KoreanInstructions() : EnglishInstructions();
+      _prompts = isKorean ? EnglishPrompts() : KoreanPrompts();
       response = ''; // Clear the response when the language direction changes
       score = 0; // Reset the score when the language direction changes
+    });
+  }
+
+  void provideRandomSamplePrompt() {
+    setState(() {
+      _instructions.prompt = _prompts.promptMap[random.nextInt(100)]!;
     });
   }
 
@@ -217,6 +229,11 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 promptEditorTitle: _instructions.promptEditorText,
                 saveText: _instructions.save,
                 cancelText: _instructions.cancel,
+              ),
+              IconButton(
+                onPressed: provideRandomSamplePrompt,
+                icon: const Icon(Icons.shuffle),
+                color: Colors.purple,
               ),
               spacing,
               UserInput(
