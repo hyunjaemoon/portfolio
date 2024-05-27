@@ -7,11 +7,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    secrets: inherit
     
     steps:
       - uses: actions/checkout@v2
+      - name: Check secret keys
+        run: |
+          echo ${{ secrets.GOOGLE_CREDENTIALS }}
+          echo ${{ secrets.GEMINI_API_KEY }}
+          echo ${{ secrets.GITHUB_TOKEN }}
       - uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
