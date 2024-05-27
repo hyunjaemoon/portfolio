@@ -1,6 +1,4 @@
-// ignore: unused_import
-import 'dart:ui_web';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
@@ -44,7 +42,8 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Moon Book"),
+          title:
+              Text("Moon Book", style: kIsWeb ? null : fitTextStyle(context)),
           leading: IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {

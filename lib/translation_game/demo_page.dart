@@ -1,8 +1,6 @@
 import 'dart:math';
 
-// ignore: unused_import
-import 'dart:ui_web';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moonbook/translation_game/api_interface.dart';
 import 'package:moonbook/translation_game/instructions.dart';
@@ -139,10 +137,13 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
           title: Text(
             _instructions.title,
             textAlign: TextAlign.center,
-            style: fitTextStyle(context)
-                .apply(color: Colors.purple, fontSizeFactor: 0.5, shadows: [
-              Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
-            ]),
+            style: fitTextStyle(context).apply(
+                color: Colors.purple,
+                fontSizeFactor: kIsWeb ? 0.5 : 0.7,
+                shadows: [
+                  Shadow(
+                      color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
+                ]),
           ),
         ),
         backgroundColor: const Color(0xff0e0419),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moonbook/utils.dart';
 
@@ -15,8 +16,8 @@ class DisclaimerWidget extends StatelessWidget {
       child: Center(
         child: Text(
           'Disclaimer: This app is created for the purpose of exploring and learning LLM. I will not be participating in the Gemini API Developer Competition.',
-          style: fitTextStyle(context).apply(
-              color: Colors.black, fontSizeFactor: 0.5 * (750 / screenHeight)),
+          style: fitTextStyle(context)
+              .apply(color: Colors.black, fontSizeFactor: kIsWeb ? 0.5 : 1),
           textAlign: TextAlign.center,
           maxLines: 5, // Set the maximum number of lines
           overflow: TextOverflow.ellipsis,
