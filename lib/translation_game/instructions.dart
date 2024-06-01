@@ -20,7 +20,7 @@ class KoreanInstructions implements Instructions {
   @override
   String languageToggle = "Language Toggle";
   @override
-  String instruction = "다음 문장을 한국어로 번역하시오.\n문장을 탭하여 수정할 수 있습니다.";
+  String instruction = "다음 문장을 한국어로 번역하시오. 문장을 탭하여 수정할 수 있습니다.";
   String _prompt = "Hello"; // Private field for prompt
   @override
   String get prompt => _prompt; // Getter for prompt
@@ -51,7 +51,7 @@ class EnglishInstructions implements Instructions {
   String languageToggle = "언어 변경";
   @override
   String instruction =
-      "Translate the following sentence into English.\nYou may tap the sentence to edit it.";
+      "Translate the following sentence into English. You may tap the sentence to edit it.";
   String _prompt = "안녕"; // Private field for prompt
   @override
   String get prompt => _prompt; // Getter for prompt

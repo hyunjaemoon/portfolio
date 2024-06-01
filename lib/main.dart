@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
@@ -36,14 +35,13 @@ class PortfolioMainPage extends StatefulWidget {
 }
 
 class _PortfolioMainPageState extends State<PortfolioMainPage> {
-  int page = 0;
+  int page = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title:
-              Text("Moon Book", style: kIsWeb ? null : fitTextStyle(context)),
+          title: Text("Moon Book", style: fitTextStyle(context)),
           leading: IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {

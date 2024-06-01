@@ -23,6 +23,10 @@ Future<void> launchUrlCheck(String urlKey) async {
 
 TextStyle fitTextStyle(BuildContext context) {
   final size = MediaQuery.of(context).size;
-  final textScaleFactor = size.width / 500;
+  final textWidthScaleFactor = size.width / 500;
+  final textHeightScaleFactor = size.height / 800;
+  final textScaleFactor = textWidthScaleFactor < textHeightScaleFactor
+      ? textWidthScaleFactor
+      : textHeightScaleFactor;
   return TextStyle(fontSize: 24 * textScaleFactor);
 }

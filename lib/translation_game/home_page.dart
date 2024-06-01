@@ -36,7 +36,7 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
     double screenHeight = min(MediaQuery.of(context).size.height, 500);
 
     return Scaffold(
-      bottomNavigationBar: DisclaimerWidget(),
+      bottomNavigationBar: const DisclaimerWidget(),
       backgroundColor: const Color(0xff0e0419),
       body: SingleChildScrollView(
         child: Center(
@@ -44,8 +44,8 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: screenWidth * 0.6,
-                height: screenHeight * 0.6,
+                width: screenWidth * 0.5,
+                height: screenHeight * 0.5,
                 child: AnimatedBuilder(
                   animation: _animationController,
                   builder: (BuildContext context, Widget? child) {
