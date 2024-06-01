@@ -19,3 +19,10 @@ jobs:
       - uses: erickzanardo/flutter-gh-pages@v7
         with:
           customArgs: --dart-define GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} # Add this line
+      - name: Configure custom domain
+        run: |
+          mkdir public
+          echo "hyunjaemoon.com" > public/CNAME
+          cat public/CNAME
+        env:
+          your-custom-domain: hyunjaemoon.com
