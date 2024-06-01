@@ -35,7 +35,7 @@ class PortfolioMainPage extends StatefulWidget {
 }
 
 class _PortfolioMainPageState extends State<PortfolioMainPage> {
-  int page = 1;
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
