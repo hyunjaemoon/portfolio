@@ -71,34 +71,35 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
     super.dispose();
   }
 
-  Future<void> sendAIRequest() async {
-    setState(() {
-      isLoading = true;
-    });
+  Future<Response> sendAIRequest() async {
     try {
-      final apiResponse = await _apiService.sendAIRequest(
+      return await _apiService.sendAIRequest(
         primaryLanguage: _primaryLanguage,
         secondaryLanguage: _secondaryLanguage,
         prompt: _instructions.prompt,
         userInput: _textController.text,
       );
-
-      setState(() {
-        response = apiResponse.response;
-        if (apiResponse is GameResponse) {
-          score = apiResponse.score;
-        } else {
-          score = 0;
-        }
-      });
     } catch (e) {
-      setState(() {
-        response = 'Error: ${e.toString()}';
-        score = 0;
-      });
+      return ErrorResponse(e.toString());
+    }
+  }
+
+  Future<void> processRequest() async {
+    setState(() {
+      isLoading = true;
+    });
+    Response aiResponse = ErrorResponse('Critical Error: No response');
+    // Attempt sending AIRequest 5 times before giving up
+    for (int i = 0; i < 5; i++) {
+      aiResponse = await sendAIRequest();
+      if (aiResponse is GameResponse) {
+        break;
+      }
     }
     setState(() {
       isLoading = false;
+      response = aiResponse.response;
+      score = aiResponse.score;
     });
   }
 
@@ -136,10 +137,13 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
           title: Text(
             _instructions.title,
             textAlign: TextAlign.center,
-            style: fitTextStyle(context)
-                .apply(color: Colors.purple, fontSizeFactor: 0.8, shadows: [
-              Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
-            ]),
+            style: fitTextStyle(context).apply(
+                color: Colors.purple,
+                fontSizeFactor: 0.8,
+                shadows: [
+                  const Shadow(
+                      color: Colors.black, offset: Offset(1, 1), blurRadius: 2)
+                ]),
           ),
         ),
         backgroundColor: const Color(0xff0e0419),
@@ -154,7 +158,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('${_instructions.languageToggle}: ',
-                      style: TextStyle(color: Colors.white)),
+                      style: const TextStyle(color: Colors.white)),
                   const Text('English', style: TextStyle(color: Colors.white)),
                   spacing,
                   Transform.scale(
@@ -246,7 +250,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 isLoading: isLoading,
                 onPressed: () async {
                   if (!isLoading) {
-                    await sendAIRequest();
+                    await processRequest();
                   }
                 },
                 buttonText: _instructions.buttonText,
