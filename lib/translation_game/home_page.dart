@@ -115,7 +115,7 @@ class TranslationGameHomePageState extends State<TranslationGameHomePage>
                   ),
                 ),
                 child: const Text(
-                  'Endless Mode (Coming Soon)',
+                  'Score Mode (Coming Soon)',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
