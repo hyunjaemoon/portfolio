@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:moonbook/utils.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PortfolioHomePage extends StatefulWidget {
   @override
@@ -184,6 +185,46 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                 ),
               ),
+              SizedBox(height: screenHeight * 0.02),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Scaffold(
+                        appBar: AppBar(
+                          title: Text('Resume'),
+                          backgroundColor: Colors.transparent,
+                          actions: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.download),
+                              onPressed: () {
+                                launchUrlCheck("resumepdf");
+                              },
+                            )
+                          ],
+                        ),
+                        body: SfPdfViewer.asset('assets/resume.pdf'));
+                  }));
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.teal,
+                  backgroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.1,
+                      vertical: screenHeight * 0.02),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'Resume',
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
             ]),
           ),
         ),

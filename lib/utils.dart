@@ -8,6 +8,8 @@ Map<String, String> urlMap = {
       'https://github.com/hyunjaemoon/hyunjaemoon.github.io/blob/main/LICENSE',
   'aosp':
       'https://android-review.googlesource.com/q/owner:hyunjaemoon@google.com',
+  'resumepdf':
+      'https://drive.google.com/file/d/1xtLk5Lexxq8ENxegO4JQqZm_D2rOQtu0/preview',
 };
 
 Future<void> launchUrlCheck(String urlKey) async {
