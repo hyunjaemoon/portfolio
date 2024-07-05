@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:moonbook/utils.dart';
+import 'package:simple_icons/simple_icons.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PortfolioHomePage extends StatefulWidget {
@@ -61,21 +63,30 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
               Text(
                 'Hyun Jae Moon',
                 style: TextStyle(
-                  fontFamily: 'Montserrat',
+                  fontFamily: 'Open Sans',
                   fontSize: screenWidth * 0.1,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: screenHeight * 0.025),
               Center(
-                child: Text(
-                  'Software Engineer & Mobile App Developer',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: screenWidth * 0.05,
-                    color: Colors.white.withOpacity(0.8),
-                  ),
+                child: AnimatedTextKit(
+                  isRepeatingAnimation: false,
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'Software Engineer',
+                      textAlign: TextAlign.center,
+                      textStyle: TextStyle(
+                        fontFamily: 'Open Sans',
+                        fontSize: screenWidth * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        height: 1.5,
+                      ),
+                      speed: Duration(milliseconds: 100),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: screenHeight * 0.05),
@@ -127,102 +138,100 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
               SizedBox(height: screenHeight * 0.05),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-                child: Text(
-                  'Welcome to my portfolio app! I am an experienced software engineer with a passion for creating visually appealing and user-friendly applications. Please feel free to browse my projects and contact me for any inquiries.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.04,
-                    color: Colors.white.withOpacity(0.8),
-                    height: 1.5,
-                  ),
+                child: AnimatedTextKit(
+                  isRepeatingAnimation: false,
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'Welcome to my portfolio app!\nFeel free to explore my projects and reach out to me for any inquiries.',
+                      textAlign: TextAlign.center,
+                      textStyle: TextStyle(
+                        fontFamily: 'Open Sans',
+                        fontSize: screenWidth * 0.04,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black,
+                        height: 1.5,
+                      ),
+                      speed: Duration(milliseconds: 100),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: screenHeight * 0.05),
-              ElevatedButton(
-                onPressed: () {
-                  launchUrlCheck("github");
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.teal,
-                  backgroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.1,
-                      vertical: screenHeight * 0.02),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      SimpleIcons.github,
+                      color: SimpleIconColors.github,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      launchUrlCheck("github");
+                    },
                   ),
-                ),
-                child: Text(
-                  'Github',
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.045,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                  SizedBox(width: screenWidth * 0.05),
+                  IconButton(
+                    icon: Icon(
+                      SimpleIcons.android,
+                      color: Colors.black,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      launchUrlCheck("aosp");
+                    },
                   ),
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              ElevatedButton(
-                onPressed: () {
-                  launchUrlCheck("aosp");
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.teal,
-                  backgroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.1,
-                      vertical: screenHeight * 0.02),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                  SizedBox(width: screenWidth * 0.05),
+                  IconButton(
+                    icon: Icon(
+                      Icons.edit_document,
+                      color: Colors.black,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Scaffold(
+                            appBar: AppBar(
+                              title: Text('Resume'),
+                              backgroundColor: Colors.transparent,
+                              actions: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.download),
+                                  onPressed: () {
+                                    launchUrlCheck("resumepdf");
+                                  },
+                                )
+                              ],
+                            ),
+                            body: SfPdfViewer.asset('assets/resume.pdf'));
+                      }));
+                    },
                   ),
-                ),
-                child: Text(
-                  'AOSP | Google',
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.045,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                  SizedBox(width: screenWidth * 0.05),
+                  IconButton(
+                    icon: Icon(
+                      Icons.email,
+                      color: Colors.black,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      sendEmail();
+                    },
                   ),
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Scaffold(
-                        appBar: AppBar(
-                          title: Text('Resume'),
-                          backgroundColor: Colors.transparent,
-                          actions: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.download),
-                              onPressed: () {
-                                launchUrlCheck("resumepdf");
-                              },
-                            )
-                          ],
-                        ),
-                        body: SfPdfViewer.asset('assets/resume.pdf'));
-                  }));
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.teal,
-                  backgroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.1,
-                      vertical: screenHeight * 0.02),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                  SizedBox(width: screenWidth * 0.05),
+                  IconButton(
+                    icon: Icon(
+                      SimpleIcons.linkedin,
+                      color: Colors.black,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      launchUrlCheck("linkedin");
+                    },
                   ),
-                ),
-                child: Text(
-                  'Resume',
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.045,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
+                ],
               ),
               SizedBox(height: screenHeight * 0.02),
             ]),
