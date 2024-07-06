@@ -185,6 +185,17 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
                     icon: Icon(
+                      SimpleIcons.linkedin,
+                      color: Colors.black,
+                      size: screenWidth * 0.1,
+                    ),
+                    onPressed: () {
+                      launchUrlCheck("linkedin");
+                    },
+                  ),
+                  SizedBox(width: screenWidth * 0.05),
+                  IconButton(
+                    icon: Icon(
                       Icons.edit_document,
                       color: Colors.black,
                       size: screenWidth * 0.1,
@@ -218,17 +229,6 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                     ),
                     onPressed: () {
                       sendEmail();
-                    },
-                  ),
-                  SizedBox(width: screenWidth * 0.05),
-                  IconButton(
-                    icon: Icon(
-                      SimpleIcons.linkedin,
-                      color: Colors.black,
-                      size: screenWidth * 0.1,
-                    ),
-                    onPressed: () {
-                      launchUrlCheck("linkedin");
                     },
                   ),
                 ],
