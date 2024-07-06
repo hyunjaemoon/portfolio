@@ -10,6 +10,7 @@ Map<String, String> urlMap = {
       'https://android-review.googlesource.com/q/owner:hyunjaemoon@google.com',
   'resumepdf':
       'https://drive.google.com/file/d/1xtLk5Lexxq8ENxegO4JQqZm_D2rOQtu0/preview',
+  'linguaghost': 'https://hyunjaemoon.com/translation_game',
 };
 
 Future<void> launchUrlCheck(String urlKey) async {

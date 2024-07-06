@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/snake.dart';
-import 'package:moonbook/translation_game/home_page.dart';
+import 'package:moonbook/translation_game/demo_page.dart';
 import 'package:moonbook/utils.dart';
 
 void main() {
@@ -58,9 +58,34 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
                 fit: BoxFit.contain, // Zoom in the image to fit the IconButton
               ),
               onPressed: () {
-                setState(() {
-                  page = 1;
-                });
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Choose Version'),
+                      content: Text(
+                          'Do you want the old version or the new version?'),
+                      actions: [
+                        TextButton(
+                          child: Text('Old Version'),
+                          onPressed: () {
+                            setState(() {
+                              page = 1;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text('New Version'),
+                          onPressed: () {
+                            launchUrlCheck('linguaghost');
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
             IconButton(
@@ -89,7 +114,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return TranslationGameHomePage();
+        return const TranslationGameDemoWidget();
       case 2:
         return SnakeGame();
       default:
