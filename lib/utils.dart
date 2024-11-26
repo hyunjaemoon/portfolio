@@ -9,7 +9,7 @@ Map<String, String> urlMap = {
   'aosp':
       'https://android-review.googlesource.com/q/owner:hyunjaemoon@google.com',
   'resumepdf':
-      'https://drive.google.com/file/d/1xtLk5Lexxq8ENxegO4JQqZm_D2rOQtu0/preview',
+      'https://drive.google.com/file/d/1xtLk5Lexxq8ENxegO4JQqZm_D2rOQtu0/view',
   'linguaghost': 'https://hyunjaemoon.com/translation_game',
 };
 
