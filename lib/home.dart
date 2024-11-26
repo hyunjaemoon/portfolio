@@ -3,7 +3,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:moonbook/utils.dart';
 import 'package:simple_icons/simple_icons.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PortfolioHomePage extends StatefulWidget {
   @override
@@ -201,23 +200,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                       size: screenWidth * 0.1,
                     ),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Scaffold(
-                            appBar: AppBar(
-                              title: Text('Resume'),
-                              backgroundColor: Colors.transparent,
-                              actions: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.download),
-                                  onPressed: () {
-                                    launchUrlCheck("resumepdf");
-                                  },
-                                )
-                              ],
-                            ),
-                            body: SfPdfViewer.asset('assets/resume.pdf'));
-                      }));
+                      launchUrlCheck("resumepdf");
                     },
                   ),
                   SizedBox(width: screenWidth * 0.05),
