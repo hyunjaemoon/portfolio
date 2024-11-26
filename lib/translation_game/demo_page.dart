@@ -146,7 +146,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 ]),
           ),
         ),
-        backgroundColor: const Color(0xff0e0419),
+        backgroundColor: Theme.of(context).colorScheme.background,
         bottomNavigationBar: ReportIssue(
           buttonText: _instructions.reportIssueText,
         ),
@@ -158,8 +158,8 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('${_instructions.languageToggle}: ',
-                      style: const TextStyle(color: Colors.white)),
-                  const Text('English', style: TextStyle(color: Colors.white)),
+                      style: const TextStyle(color: Colors.black)),
+                  const Text('English', style: TextStyle(color: Colors.black)),
                   spacing,
                   Transform.scale(
                     scale: 1.0,
@@ -172,7 +172,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
                     ),
                   ),
                   spacing,
-                  const Text('한국어', style: TextStyle(color: Colors.white)),
+                  const Text('한국어', style: TextStyle(color: Colors.black)),
                 ],
               ),
               spacing,
@@ -241,7 +241,7 @@ class _TranslationGameDemoWidgetState extends State<TranslationGameDemoWidget>
               UserInput(
                 controller: _textController,
                 decoration: InputDecoration(
-                  labelStyle: const TextStyle(color: Colors.white),
+                  labelStyle: const TextStyle(color: Colors.black),
                   labelText: _instructions.input,
                 ),
               ),

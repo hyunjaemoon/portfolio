@@ -40,7 +40,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Moon Book", style: fitTextStyle(context)),
+          title: const Text("Moon Book"),
           leading: IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {
@@ -58,34 +58,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
                 fit: BoxFit.contain, // Zoom in the image to fit the IconButton
               ),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Choose Version'),
-                      content: Text(
-                          'Do you want the old version or the new version?'),
-                      actions: [
-                        TextButton(
-                          child: Text('Old Version'),
-                          onPressed: () {
-                            setState(() {
-                              page = 1;
-                            });
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: Text('New Version'),
-                          onPressed: () {
-                            launchUrlCheck('linguaghost');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+                launchUrlCheck('linguaghost');
               },
             ),
             IconButton(
@@ -94,7 +67,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               ),
               onPressed: () {
                 setState(() {
-                  page = 2;
+                  page = 1;
                 });
               },
             ),
@@ -106,6 +79,16 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
             ),
           ]),
       body: _buildBody(),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            '© Hyun Jae Moon ${DateTime.now().year}',
+            style: const TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
     );
   }
 
@@ -114,8 +97,6 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
       case 0:
         return PortfolioHomePage();
       case 1:
-        return const TranslationGameDemoWidget();
-      case 2:
         return SnakeGame();
       default:
         return PortfolioHomePage();
