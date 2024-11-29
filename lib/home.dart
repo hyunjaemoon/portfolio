@@ -135,27 +135,6 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                 ],
               ),
               SizedBox(height: screenHeight * 0.05),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-                child: AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      'Welcome to my portfolio app!\nFeel free to explore my projects and reach out to me for any inquiries.',
-                      textAlign: TextAlign.center,
-                      textStyle: TextStyle(
-                        fontFamily: 'Open Sans',
-                        fontSize: screenWidth * 0.04,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                        height: 1.5,
-                      ),
-                      speed: Duration(milliseconds: 100),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
