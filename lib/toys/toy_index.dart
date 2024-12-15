@@ -32,6 +32,24 @@ class _AiHomePageState extends State<AiHomePage> {
                 },
               ),
               IconButton(
+                icon: ClipOval(
+                  child: Image.asset(
+                    "assets/chanceshift_title.gif",
+                    fit: BoxFit.cover, // Crop the image to fit the IconButton
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(
+                              "ChanceShift is currently under construction",
+                              style: GoogleFonts.openSans(),
+                            ),
+                          ));
+                },
+              ),
+              IconButton(
                 icon: LayoutBuilder(
                   builder: (context, constraints) {
                     return FaIcon(FontAwesomeIcons.staffSnake,
@@ -66,24 +84,6 @@ class _AiHomePageState extends State<AiHomePage> {
                           ));
                 },
               ),
-              IconButton(
-                icon: ClipOval(
-                  child: Image.asset(
-                    "assets/chanceshift_title.gif",
-                    fit: BoxFit.cover, // Crop the image to fit the IconButton
-                  ),
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(
-                              "ChanceShift is currently under construction",
-                              style: GoogleFonts.openSans(),
-                            ),
-                          ));
-                },
-              )
             ],
           );
         },
