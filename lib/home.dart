@@ -99,7 +99,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: AssetImage('assets/profile_image.jpg'),
+                          image: AssetImage('assets/profile_image.gif'),
                           fit: BoxFit.cover,
                         ),
                         border: Border.all(
