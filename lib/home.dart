@@ -44,7 +44,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = min(MediaQuery.of(context).size.width, 600);
+    double screenWidth = min(MediaQuery.of(context).size.width, 450);
     double screenHeight = min(MediaQuery.of(context).size.height, 800);
 
     return Scaffold(

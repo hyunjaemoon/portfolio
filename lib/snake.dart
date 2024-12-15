@@ -173,9 +173,18 @@ class _SnakeGameState extends State<SnakeGame> {
           ),
         ),
         body: Container(
+          alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Use '↑', '↓', '→', '←' arrow keys or swipe across the screen!",
+                  style: GoogleFonts.openSans(),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Expanded(
                 child: GestureDetector(
                   onVerticalDragUpdate: (details) {
@@ -199,81 +208,6 @@ class _SnakeGameState extends State<SnakeGame> {
                     }
                   },
                   child: buildGridView(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            if (!hasMoved && direction != 'down') {
-                              direction = 'up';
-                              hasMoved = true;
-                            }
-                          },
-                          child: Icon(Icons.arrow_upward),
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding:
-                                EdgeInsets.all(20.0), // Adjust the button size
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                if (!hasMoved && direction != 'right') {
-                                  direction = 'left';
-                                  hasMoved = true;
-                                }
-                              },
-                              child: Icon(Icons.arrow_back),
-                              style: ElevatedButton.styleFrom(
-                                shape: CircleBorder(),
-                                padding: EdgeInsets.all(
-                                    20.0), // Adjust the button size
-                              ),
-                            ),
-                            SizedBox(
-                                width: 80.0,
-                                height: 80.0), // Placeholder for spacing
-                            ElevatedButton(
-                              onPressed: () {
-                                if (!hasMoved && direction != 'left') {
-                                  direction = 'right';
-                                  hasMoved = true;
-                                }
-                              },
-                              child: Icon(Icons.arrow_forward),
-                              style: ElevatedButton.styleFrom(
-                                shape: CircleBorder(),
-                                padding: EdgeInsets.all(
-                                    20.0), // Adjust the button size
-                              ),
-                            ),
-                          ],
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (!hasMoved && direction != 'up') {
-                              direction = 'down';
-                              hasMoved = true;
-                            }
-                          },
-                          child: Icon(Icons.arrow_downward),
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding:
-                                EdgeInsets.all(20.0), // Adjust the button size
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
               ElevatedButton(
