@@ -14,73 +14,79 @@ class _AiHomePageState extends State<AiHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          IconButton(
-            icon: Image.asset(
-              "assets/translation_video_game_logo.png",
-              fit: BoxFit.contain, // Zoom in the image to fit the IconButton
-            ),
-            onPressed: () {
-              launchUrlCheck('linguaghost');
-            },
-          ),
-          IconButton(
-            icon: LayoutBuilder(
-              builder: (context, constraints) {
-                return FaIcon(FontAwesomeIcons.staffSnake,
-                    color: Colors.white, size: constraints.maxWidth / 2);
-              },
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SnakeGame()),
-              );
-            },
-          ),
-          IconButton(
-            icon: LayoutBuilder(
-              builder: (context, constraints) {
-                return Icon(
-                  Icons.chat,
-                  color: Colors.white,
-                  size: constraints.maxWidth / 2,
-                );
-              },
-            ),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(
-                          "Software Consulting Chatbot is currently under construction",
-                          style: GoogleFonts.openSans(),
-                        ),
-                      ));
-            },
-          ),
-          IconButton(
-            icon: ClipOval(
-              child: Image.asset(
-                "assets/chanceshift_title.gif",
-                fit: BoxFit.cover, // Crop the image to fit the IconButton
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return GridView.count(
+            crossAxisCount: 2 +
+                (constraints.maxWidth > (constraints.maxHeight * 1.5)
+                    ? 2
+                    : (constraints.maxWidth > constraints.maxHeight ? 1 : 0)),
+            children: [
+              IconButton(
+                icon: Image.asset(
+                  "assets/translation_video_game_logo.png",
+                  fit: BoxFit.cover, // Zoom in the image to fit the IconButton
+                ),
+                onPressed: () {
+                  launchUrlCheck('linguaghost');
+                },
               ),
-            ),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(
-                          "ChanceShift is currently under construction",
-                          style: GoogleFonts.openSans(),
-                        ),
-                      ));
-            },
-          ),
-          // Add more IconButton widgets here as needed
-        ],
+              IconButton(
+                icon: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return FaIcon(FontAwesomeIcons.staffSnake,
+                        color: Colors.white, size: constraints.maxWidth / 2);
+                  },
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SnakeGame()),
+                  );
+                },
+              ),
+              IconButton(
+                icon: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: constraints.maxWidth / 2,
+                    );
+                  },
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(
+                              "Software Consulting Chatbot is currently under construction",
+                              style: GoogleFonts.openSans(),
+                            ),
+                          ));
+                },
+              ),
+              IconButton(
+                icon: ClipOval(
+                  child: Image.asset(
+                    "assets/chanceshift_title.gif",
+                    fit: BoxFit.cover, // Crop the image to fit the IconButton
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(
+                              "ChanceShift is currently under construction",
+                              style: GoogleFonts.openSans(),
+                            ),
+                          ));
+                },
+              )
+            ],
+          );
+        },
       ),
     );
   }
