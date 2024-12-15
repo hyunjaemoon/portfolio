@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/utils.dart';
 import 'package:simple_icons/simple_icons.dart';
 
@@ -48,7 +49,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF43cea2), Color(0xFF185a9d)],
             begin: Alignment.center,
@@ -59,15 +60,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                'Hyun Jae Moon',
-                style: TextStyle(
-                  fontFamily: 'Open Sans',
-                  fontSize: screenWidth * 0.1,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+              Text('Hyun Jae Moon',
+                  style: GoogleFonts.openSans(
+                      fontSize: screenWidth * 0.1,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
               SizedBox(height: screenHeight * 0.025),
               Center(
                 child: AnimatedTextKit(
@@ -76,13 +73,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                     TypewriterAnimatedText(
                       'Software Engineer',
                       textAlign: TextAlign.center,
-                      textStyle: TextStyle(
-                        fontFamily: 'Open Sans',
-                        fontSize: screenWidth * 0.05,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        height: 1.5,
-                      ),
+                      textStyle: GoogleFonts.openSans(
+                          fontSize: screenWidth * 0.05,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          height: 1.5),
                       speed: Duration(milliseconds: 100),
                     ),
                   ],
@@ -125,7 +120,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                             width: 2,
                           ),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.edit,
                           color: Colors.white,
                         ),

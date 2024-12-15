@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/snake_ai.dart';
 
 class SnakeGame extends StatefulWidget {
@@ -161,117 +162,130 @@ class _SnakeGameState extends State<SnakeGame> {
           }
         }
       },
-      child: Container(
-        color: Theme.of(context).colorScheme.background,
-        child: Column(
-          children: [
-            Expanded(
-              child: GestureDetector(
-                onVerticalDragUpdate: (details) {
-                  if (!hasMoved && direction != 'up' && details.delta.dy > 0) {
-                    direction = 'down';
-                    hasMoved = true;
-                  } else if (direction != 'down' && details.delta.dy < 0) {
-                    direction = 'up';
-                    hasMoved = true;
-                  }
-                },
-                onHorizontalDragUpdate: (details) {
-                  if (direction != 'left' && details.delta.dx > 0) {
-                    direction = 'right';
-                    hasMoved = true;
-                  } else if (direction != 'right' && details.delta.dx < 0) {
-                    direction = 'left';
-                    hasMoved = true;
-                  }
-                },
-                child: buildGridView(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Snake Game', style: GoogleFonts.acme()),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: Container(
+          color: Theme.of(context).colorScheme.background,
+          child: Column(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onVerticalDragUpdate: (details) {
+                    if (!hasMoved &&
+                        direction != 'up' &&
+                        details.delta.dy > 0) {
+                      direction = 'down';
+                      hasMoved = true;
+                    } else if (direction != 'down' && details.delta.dy < 0) {
+                      direction = 'up';
+                      hasMoved = true;
+                    }
+                  },
+                  onHorizontalDragUpdate: (details) {
+                    if (direction != 'left' && details.delta.dx > 0) {
+                      direction = 'right';
+                      hasMoved = true;
+                    } else if (direction != 'right' && details.delta.dx < 0) {
+                      direction = 'left';
+                      hasMoved = true;
+                    }
+                  },
+                  child: buildGridView(),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          if (!hasMoved && direction != 'down') {
-                            direction = 'up';
-                            hasMoved = true;
-                          }
-                        },
-                        child: Icon(Icons.arrow_upward),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding:
-                              EdgeInsets.all(20.0), // Adjust the button size
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              if (!hasMoved && direction != 'right') {
-                                direction = 'left';
-                                hasMoved = true;
-                              }
-                            },
-                            child: Icon(Icons.arrow_back),
-                            style: ElevatedButton.styleFrom(
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(
-                                  20.0), // Adjust the button size
-                            ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!hasMoved && direction != 'down') {
+                              direction = 'up';
+                              hasMoved = true;
+                            }
+                          },
+                          child: Icon(Icons.arrow_upward),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding:
+                                EdgeInsets.all(20.0), // Adjust the button size
                           ),
-                          SizedBox(
-                              width: 80.0,
-                              height: 80.0), // Placeholder for spacing
-                          ElevatedButton(
-                            onPressed: () {
-                              if (!hasMoved && direction != 'left') {
-                                direction = 'right';
-                                hasMoved = true;
-                              }
-                            },
-                            child: Icon(Icons.arrow_forward),
-                            style: ElevatedButton.styleFrom(
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(
-                                  20.0), // Adjust the button size
-                            ),
-                          ),
-                        ],
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (!hasMoved && direction != 'up') {
-                            direction = 'down';
-                            hasMoved = true;
-                          }
-                        },
-                        child: Icon(Icons.arrow_downward),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding:
-                              EdgeInsets.all(20.0), // Adjust the button size
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                if (!hasMoved && direction != 'right') {
+                                  direction = 'left';
+                                  hasMoved = true;
+                                }
+                              },
+                              child: Icon(Icons.arrow_back),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(
+                                    20.0), // Adjust the button size
+                              ),
+                            ),
+                            SizedBox(
+                                width: 80.0,
+                                height: 80.0), // Placeholder for spacing
+                            ElevatedButton(
+                              onPressed: () {
+                                if (!hasMoved && direction != 'left') {
+                                  direction = 'right';
+                                  hasMoved = true;
+                                }
+                              },
+                              child: Icon(Icons.arrow_forward),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(
+                                    20.0), // Adjust the button size
+                              ),
+                            ),
+                          ],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!hasMoved && direction != 'up') {
+                              direction = 'down';
+                              hasMoved = true;
+                            }
+                          },
+                          child: Icon(Icons.arrow_downward),
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding:
+                                EdgeInsets.all(20.0), // Adjust the button size
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Toggle AI solving
-                startAI();
-              },
-              child: Text(isAIActive ? "Disable AI" : "Let AI Solve"),
-            ),
-            const SizedBox(height: 16),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  // Toggle AI solving
+                  startAI();
+                },
+                child: Text(isAIActive ? "Disable AI" : "Let AI Solve"),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
