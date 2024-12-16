@@ -164,7 +164,8 @@ class _SnakeGameState extends State<SnakeGame> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Snake Game', style: GoogleFonts.acme()),
+          title: Text('Snake Game',
+              style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -181,7 +182,7 @@ class _SnakeGameState extends State<SnakeGame> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "Use '↑', '↓', '→', '←' arrow keys or swipe across the screen!",
-                  style: GoogleFonts.openSans(),
+                  style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),

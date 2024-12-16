@@ -39,7 +39,8 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Moon Book", style: GoogleFonts.acme()),
+          title: Text("Moon Book",
+              style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
           leading: IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {
@@ -70,7 +71,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             '© Hyun Jae Moon ${DateTime.now().year}',
-            style: GoogleFonts.acme(),
+            style: GoogleFonts.openSans(),
             textAlign: TextAlign.center,
           ),
         ),

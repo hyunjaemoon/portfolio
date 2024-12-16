@@ -37,7 +37,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hyun Jae Moon Chatbot', style: GoogleFonts.acme()),
+        title: Text('Hyun Jae Moon Chatbot', style: GoogleFonts.openSans()),
       ),
       body: Column(
         children: [
