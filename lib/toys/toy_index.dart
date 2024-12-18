@@ -13,6 +13,10 @@ class _AiHomePageState extends State<AiHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("AI Powered Toys",
+            style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
+      ),
       backgroundColor: Colors.black,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -34,7 +38,7 @@ class _AiHomePageState extends State<AiHomePage> {
               IconButton(
                 icon: ClipOval(
                   child: Image.asset(
-                    "assets/chanceshift_title.gif",
+                    "assets/chanceshift_title.png",
                     fit: BoxFit.cover, // Crop the image to fit the IconButton
                   ),
                 ),
