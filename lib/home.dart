@@ -135,6 +135,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
+                    tooltip: "GitHub",
                     icon: Icon(
                       SimpleIcons.github,
                       color: SimpleIconColors.github,
@@ -146,6 +147,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
+                    tooltip: "Android Open Source Project",
                     icon: Icon(
                       SimpleIcons.android,
                       color: Colors.black,
@@ -157,6 +159,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
+                    tooltip: "LinkedIn",
                     icon: Icon(
                       SimpleIcons.linkedin,
                       color: Colors.black,
@@ -168,6 +171,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
+                    tooltip: "Resume",
                     icon: Icon(
                       Icons.edit_document,
                       color: Colors.black,
@@ -179,6 +183,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
+                    tooltip: "Email",
                     icon: Icon(
                       Icons.email,
                       color: Colors.black,

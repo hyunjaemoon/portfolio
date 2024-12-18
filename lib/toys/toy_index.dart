@@ -27,6 +27,7 @@ class _AiHomePageState extends State<AiHomePage> {
                     : (constraints.maxWidth > constraints.maxHeight ? 1 : 0)),
             children: [
               IconButton(
+                tooltip: "Translation Game",
                 icon: Image.asset(
                   "assets/translation_video_game_logo.png",
                   fit: BoxFit.cover, // Zoom in the image to fit the IconButton
@@ -36,6 +37,7 @@ class _AiHomePageState extends State<AiHomePage> {
                 },
               ),
               IconButton(
+                tooltip: "ChanceShift",
                 icon: ClipOval(
                   child: Image.asset(
                     "assets/chanceshift_title.png",
@@ -54,6 +56,7 @@ class _AiHomePageState extends State<AiHomePage> {
                 },
               ),
               IconButton(
+                tooltip: "Snake Game",
                 icon: LayoutBuilder(
                   builder: (context, constraints) {
                     return FaIcon(FontAwesomeIcons.staffSnake,
@@ -68,6 +71,7 @@ class _AiHomePageState extends State<AiHomePage> {
                 },
               ),
               IconButton(
+                tooltip: "Software Consulting Chatbot",
                 icon: LayoutBuilder(
                   builder: (context, constraints) {
                     return Icon(

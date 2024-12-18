@@ -42,6 +42,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           title: Text("Moon Book",
               style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
           leading: IconButton(
+            tooltip: "Main Page",
             icon: const Icon(Icons.dark_mode),
             onPressed: () {
               setState(() {
@@ -51,6 +52,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
           ),
           actions: <Widget>[
             IconButton(
+              tooltip: "AI Powered Toys",
               icon: const Icon(Icons.gamepad),
               onPressed: () {
                 setState(() {
@@ -59,6 +61,7 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
               },
             ),
             IconButton(
+              tooltip: "License",
               icon: const Icon(Icons.shield),
               onPressed: () {
                 launchUrlCheck('license');
