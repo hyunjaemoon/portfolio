@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/gemini.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,18 +41,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       He is proficient in both English and Korean. 
       Be polite and helpful.
 
-      Do NOT respond with markdown.
       Do NOT make up information.
 
       Note that your first message is already sent to the user as: 
-      "Hello! I am Hyun Jae Moon. Ask me anything!".
+      "Ask me anything! 한국말도 가능합니다!".
       """);
-  final _messages = [
-    (
-      "Hyun Jae Moon",
-      "Hello! I am Hyun Jae Moon. Ask me anything!\n한국말도 가능합니다!"
-    )
-  ];
+  final _messages = [("Hyun Jae Moon", "Ask me anything! 한국말도 가능합니다!")];
   bool _chatEnabled = true;
 
   void _scrollToBottom() {
@@ -154,9 +149,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     title: Text(entity,
                         style:
                             GoogleFonts.openSans(fontWeight: FontWeight.bold)),
-                    subtitle: Text(
-                      message,
-                      style: GoogleFonts.openSans(),
+                    subtitle: MarkdownBody(
+                      data: message,
+                      selectable: true,
                     ),
                   ),
                 );
