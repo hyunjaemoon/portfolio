@@ -1,10 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/toys/toy_index.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/utils.dart';
 
 void main() {
+  if (kDebugMode) {
+    dotenv.load(fileName: ".env");
+  }
   runApp(const PortfolioApp());
 }
 

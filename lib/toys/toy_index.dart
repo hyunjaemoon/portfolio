@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/snake.dart';
+import 'package:moonbook/toys/chatbot.dart';
 import 'package:moonbook/utils.dart';
 
 class AiHomePage extends StatefulWidget {
@@ -82,19 +83,11 @@ class _AiHomePageState extends State<AiHomePage> {
                   },
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(
-                              "Software Consulting Chatbot is currently under construction",
-                              style: GoogleFonts.openSans(),
-                            ),
-                          ));
-                  // TODO: Implement the chatbot
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => ChatbotScreen()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChatbotScreen()),
+                  );
                 },
               ),
             ],

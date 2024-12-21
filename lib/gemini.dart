@@ -28,11 +28,9 @@ class ErrorResponse implements Response {
 }
 
 class GeminiService {
-  final String envKey = 'GEMINI_API_KEY';
   late GenerativeModel model;
   late ChatSession chatSession;
   late List<MapEntry<String, String>> chatHistory;
-  String apiKey = '';
   String errorMessage = '';
 
   GeminiService(String systemInstruction,
@@ -55,11 +53,7 @@ class GeminiService {
 
     final content = Content.text(userInput);
 
-    print('Sending message to Gemini: $userInput');
-
     final response = await chatSession.sendMessage(content);
-
-    print('Received message from Gemini: ${response.text}');
 
     chatHistory.add(MapEntry('bot', response.text.toString()));
 
