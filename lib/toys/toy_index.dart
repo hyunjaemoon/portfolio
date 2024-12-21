@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/snake.dart';
+import 'package:moonbook/toys/chatbot.dart';
 import 'package:moonbook/utils.dart';
 
 class AiHomePage extends StatefulWidget {
@@ -82,38 +83,15 @@ class _AiHomePageState extends State<AiHomePage> {
                   },
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(
-                              "Software Consulting Chatbot is currently under construction",
-                              style: GoogleFonts.openSans(),
-                            ),
-                          ));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatbotScreen()),
+                  );
                 },
               ),
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class LlmPoweredGame extends StatefulWidget {
-  @override
-  _LlmPoweredGameState createState() => _LlmPoweredGameState();
-}
-
-class _LlmPoweredGameState extends State<LlmPoweredGame> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('LLM Powered Game'),
-      ),
-      body: Center(
-        child: Text('This is the LLM powered game page.'),
       ),
     );
   }

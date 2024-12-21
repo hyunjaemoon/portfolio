@@ -19,18 +19,30 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       He also likes to listen to K-Pop and Hip-Hop music.
       He can speak English and Korean.
       Be polite and helpful.""");
-  List<String> _messages = [];
+  final _messages = [];
+  bool _chatEnabled = true;
 
   void _sendMessage() async {
-    if (_controller.text.isEmpty) return;
+    _chatEnabled = false;
+    var userInput = _controller.text;
+
+    if (userInput.isEmpty) return;
+
+    _controller.clear();
     setState(() {
-      _messages.add("You: ${_controller.text}");
+      _messages.add("You: $userInput");
     });
-    Response response = await _geminiService.sendUserRequest(_controller.text);
+    setState(() {
+      _messages.add("Bot: ...");
+    });
+    Response response = await _geminiService.sendUserRequest(userInput);
+    setState(() {
+      _messages.removeLast();
+    });
     setState(() {
       _messages.add("Bot: ${response.response}");
     });
-    _controller.clear();
+    _chatEnabled = true;
   }
 
   @override
@@ -61,11 +73,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     decoration: const InputDecoration(
                       hintText: 'Ask Hyun Jae Moon any questions',
                     ),
+                    onSubmitted: (value) =>
+                        {if (value.isNotEmpty && _chatEnabled) _sendMessage()},
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
+                  onPressed: () => {
+                    if (_controller.text.isNotEmpty && _chatEnabled)
+                      _sendMessage()
+                  },
                 ),
               ],
             ),

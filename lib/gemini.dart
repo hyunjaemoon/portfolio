@@ -30,32 +30,38 @@ class ErrorResponse implements Response {
 class GeminiService {
   final String envKey = 'GEMINI_API_KEY';
   late GenerativeModel model;
+  late ChatSession chatSession;
+  late List<MapEntry<String, String>> chatHistory;
   String apiKey = '';
   String errorMessage = '';
 
   GeminiService(String systemInstruction,
-      {String model = 'gemini-1.5-flash', List<Tool> tools = const []}) {
+      {String modelType = 'gemini-1.5-flash', List<Tool> tools = const []}) {
     // Obtain the apiKey from env.dart
-    this.model = GenerativeModel(
-        model: model,
+    model = GenerativeModel(
+        model: modelType,
         apiKey: EnvService.apiKey,
         systemInstruction: Content.text(systemInstruction),
         tools: tools);
+    chatHistory = [];
+    chatSession = model.startChat();
   }
 
   Future<Response> sendUserRequest(String userInput) async {
     if (errorMessage.isNotEmpty) {
       return ErrorResponse(errorMessage);
     }
+    chatHistory.add(MapEntry('user', userInput));
 
-    final chat = model.startChat();
-    print(chat);
+    final content = Content.text(userInput);
 
-    final content = Content.text(
-      userInput,
-    );
+    print('Sending message to Gemini: $userInput');
 
-    var response = await chat.sendMessage(content);
+    final response = await chatSession.sendMessage(content);
+
+    print('Received message from Gemini: ${response.text}');
+
+    chatHistory.add(MapEntry('bot', response.text.toString()));
 
     return GeneralResponse(response.text.toString());
   }
