@@ -33,20 +33,3 @@ TextStyle fitTextStyle(BuildContext context) {
       : textHeightScaleFactor;
   return TextStyle(fontSize: 24 * textScaleFactor);
 }
-
-void sendEmail() async {
-  final Uri emailUri = Uri(
-    scheme: 'mailto',
-    path: 'calhyunjaemoon@gmail.com',
-    queryParameters: {
-      'subject': 'Contact through hyunjaemoon.com',
-      'body': 'Please ask me anything!:',
-    },
-  );
-
-  if (await launchUrl(emailUri)) {
-    return;
-  } else {
-    throw 'Could not launch email client';
-  }
-}

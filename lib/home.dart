@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moonbook/toys/chatbot.dart';
 import 'package:moonbook/utils.dart';
 import 'package:simple_icons/simple_icons.dart';
 
@@ -183,14 +184,18 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
                   ),
                   SizedBox(width: screenWidth * 0.05),
                   IconButton(
-                    tooltip: "Email",
+                    tooltip: "Chatbot",
                     icon: Icon(
-                      Icons.email,
+                      Icons.chat,
                       color: Colors.black,
                       size: screenWidth * 0.1,
                     ),
                     onPressed: () {
-                      sendEmail();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChatbotScreen()),
+                      );
                     },
                   ),
                 ],
