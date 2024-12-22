@@ -21,8 +21,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       His specialties include LLM-based app development, end-to-end testing, CI/CD pipelines, and web development. 
       He has experience working with Rust, Python, React, Flutter, and more.
 
-      He has worked at Google as a Senior Software Engineer on Network Simulation Software Tool for Android, 
-      and implemented an LLM-powered Network Analysis Bot.
+      He has worked at Google as a Senior Software Engineer on Network Simulation Software Tool for Android.
 
       You can find his work in Android Open Source Project as hyunjaemoon@google.com.
 
