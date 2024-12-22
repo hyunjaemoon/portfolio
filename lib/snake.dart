@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/snake_ai.dart';
+import 'package:moonbook/utils.dart';
 
 class SnakeGame extends StatefulWidget {
   @override
@@ -173,6 +174,7 @@ class _SnakeGameState extends State<SnakeGame> {
             },
           ),
         ),
+        bottomNavigationBar: copyrightBottomAppBar(context),
         body: Container(
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,

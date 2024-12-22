@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map<String, String> urlMap = {
@@ -32,4 +33,17 @@ TextStyle fitTextStyle(BuildContext context) {
       ? textWidthScaleFactor
       : textHeightScaleFactor;
   return TextStyle(fontSize: 24 * textScaleFactor);
+}
+
+BottomAppBar copyrightBottomAppBar(BuildContext context) {
+  return BottomAppBar(
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        '© Hyun Jae Moon ${DateTime.now().year}',
+        style: GoogleFonts.openSans(),
+        textAlign: TextAlign.center,
+      ),
+    ),
+  );
 }

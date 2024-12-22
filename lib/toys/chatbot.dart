@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/gemini.dart';
+import 'package:moonbook/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -105,16 +106,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFFE0F7FA),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            '© Hyun Jae Moon ${DateTime.now().year}',
-            style: GoogleFonts.openSans(),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
+      bottomNavigationBar: copyrightBottomAppBar(context),
       backgroundColor: const Color(0xFFE0F7FA),
       body: Column(
         children: [
