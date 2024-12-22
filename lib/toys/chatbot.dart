@@ -101,6 +101,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Software Consulting Chatbot',
+            textScaler: const TextScaler.linear(0.75),
             style: GoogleFonts.openSans(fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFFE0F7FA),
       ),
@@ -176,7 +177,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: const InputDecoration(
-                      hintText: 'Ask Hyun Jae Moon any questions',
+                      hintText: 'Enter your message...',
                     ),
                     onSubmitted: (value) =>
                         {if (value.isNotEmpty && _chatEnabled) _sendMessage()},
