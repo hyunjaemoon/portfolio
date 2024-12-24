@@ -39,20 +39,10 @@ BottomAppBar copyrightBottomAppBar(BuildContext context) {
   return BottomAppBar(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Text(
-            '© Hyun Jae Moon ${DateTime.now().year}',
-            style: GoogleFonts.openSans(),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            'Email: calhyunjaemoon@gmail.com',
-            style: GoogleFonts.openSans(),
-            textScaler: TextScaler.linear(0.7),
-            textAlign: TextAlign.center,
-          )
-        ],
+      child: Text(
+        '© Hyun Jae Moon ${DateTime.now().year}',
+        style: GoogleFonts.openSans(),
+        textAlign: TextAlign.center,
       ),
     ),
   );

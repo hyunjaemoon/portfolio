@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/toys/toy_index.dart';
 import 'package:moonbook/home.dart';
 import 'package:moonbook/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   if (kDebugMode) {
@@ -37,6 +38,38 @@ class PortfolioMainPage extends StatefulWidget {
   State<PortfolioMainPage> createState() => _PortfolioMainPageState();
 }
 
+Future<void> _emailDialog(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Send Email'),
+        content: const Text('Sending email to calhyunjaemoon@gmail.com?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: 'calhyunjaemoon@gmail.com',
+                query: 'subject=Inquiries from Moon Book',
+              );
+              await launchUrl(emailUri);
+            },
+            child: const Text('Send'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 class _PortfolioMainPageState extends State<PortfolioMainPage> {
   int page = 0;
 
@@ -64,6 +97,11 @@ class _PortfolioMainPageState extends State<PortfolioMainPage> {
                     page = 1;
                   });
                 },
+              ),
+              IconButton(
+                tooltip: "Email",
+                icon: const Icon(Icons.email),
+                onPressed: () => _emailDialog(context),
               ),
               IconButton(
                 tooltip: "License",
