@@ -181,7 +181,37 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       _sendMessage()
                   },
                 ),
-                IconButton(onPressed: _sendEmail, icon: const Icon(Icons.email))
+                IconButton(
+                    onPressed: () => {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Send Email'),
+                                content: const Text(
+                                    '''Do you want to send the conversation via email to the real Hyun Jae Moon?
+                                    \n진짜 문현재에게 이메일로 대화 내용을 보내시겠습니까?
+                                    \ncalhyunjaemoon@gmail.com'''),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      _sendEmail();
+                                    },
+                                    child: const Text('Send'),
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        },
+                    icon: const Icon(Icons.email))
               ],
             ),
           ),
