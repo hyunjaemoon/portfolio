@@ -165,6 +165,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           )
                         : MarkdownBody(
                             data: message,
+                            onTapLink: (text, href, title) =>
+                                launchUrl(Uri.parse(href!)),
                             selectable: true,
                           ),
                   ),
