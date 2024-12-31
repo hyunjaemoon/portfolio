@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moonbook/gemini.dart';
+import 'package:moonbook/typing_indicator.dart';
 import 'package:moonbook/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,10 +50,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   final _messages = [("Hyun Jae Moon", "Ask me anything! 한국말도 가능합니다!")];
   bool _chatEnabled = true;
 
-  void _scrollToBottom() {
+  Future<void> _scrollToBottom() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
-        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
       }
     });
   }
@@ -68,7 +73,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       _scrollToBottom();
     });
     setState(() {
-      _messages.add(("Hyun Jae Moon", "Thinking..."));
+      _messages.add(("Hyun Jae Moon", "typing_indicator"));
       _scrollToBottom();
     });
     Response response = await _geminiService.sendUserRequest(userInput);
@@ -151,10 +156,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     title: Text(entity,
                         style:
                             GoogleFonts.openSans(fontWeight: FontWeight.bold)),
-                    subtitle: MarkdownBody(
-                      data: message,
-                      selectable: true,
-                    ),
+                    subtitle: message == "typing_indicator"
+                        ? SizedBox(
+                            height: 60,
+                            child: TypingIndicator(
+                              showIndicator: true,
+                            ),
+                          )
+                        : MarkdownBody(
+                            data: message,
+                            selectable: true,
+                          ),
                   ),
                 );
               },
